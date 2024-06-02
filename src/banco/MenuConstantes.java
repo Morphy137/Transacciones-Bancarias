@@ -30,11 +30,15 @@ public class MenuConstantes {
   public static final String ERROR_ESCRIBIR_ARCHIVO = "Error al escribir el archivo: ";
   public static final String SALDO_INSUFICIENTE = "Saldo insuficiente para realizar el retiro.";
 
-
-  //Tipo de cuentas
+  //Tipo de Cuentas
   public static final String CUENTA_AHORRO = "Ahorro";
   public static final String CUENTA_CORRIENTE = "Corriente";
   public static final String CUENTA_VISTA = "Vista";
+
+  //Tipo de Transaccion
+  public static final String CREACION_CUENTA = "Creación de cuenta";
+  public static final String DEPOSITO = "Depósito";
+  public static final String RETIRO = "Retiro";
 
   //Fecha y hora
   public static final String FECHA_HORA = "Fecha y Hora: ";
