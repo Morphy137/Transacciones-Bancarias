@@ -1,5 +1,7 @@
 package banco;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -60,6 +62,11 @@ public class Cliente{
             "Dirección = " + direccion + '\n' +
             "Teléfono = " + telefono + '\n' +
             "Email = " + email + '\n';
+  }
+
+  public String formatearCliente() {
+    return String.format("%s || %d || %s || %s || %s || %s",
+            nombre, edad, rut, direccion, telefono, email);
   }
 
 

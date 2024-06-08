@@ -2,6 +2,7 @@ package banco;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -13,6 +14,18 @@ public class Banco{
 
   public Banco(){
     // Constructor vacio
+    cargarClientes();
+  }
+
+  public void cargarClientes() {
+    try {
+      List<Cliente> clientes = FileManager.leerClientes();
+      for (Cliente cliente : clientes) {
+        totalClientes.put(cliente.getNombre(), cliente);
+      }
+    } catch (IOException e) {
+      System.err.println("Error al leer los clientes: " + e.getMessage());
+    }
   }
 
   public void crearCuenta(Scanner scanner){
@@ -38,6 +51,13 @@ public class Banco{
       String email = scanner.nextLine();
 
       cliente = new Cliente(nombreTitular, edad, rut, direccion, telefono, email);
+
+      // Guardar el cliente en el archivo
+      try {
+        FileManager.escribirCliente(cliente);
+      } catch (IOException e) {
+        System.err.println("Error al escribir el cliente en el archivo: " + e.getMessage());
+      }
       totalClientes.put(nombreTitular, cliente);
     }
 
@@ -64,7 +84,7 @@ public class Banco{
     cliente.agregarCuenta(cuenta);
 
     // Formatear los datos de la transacción
-    String informacionTransaccion = cuenta.formatearTransaccion("Creación de cuenta", 0, cliente.getNombre(), cliente.getRut());
+    String informacionTransaccion = cuenta.formatearTransaccion(MenuConstantes.CREACION_CUENTA, 0, cliente.getNombre(), cliente.getRut());
 
     // Simular errores para guardar en el archivo
     SimularError.simularRandomError(cuenta, cliente);

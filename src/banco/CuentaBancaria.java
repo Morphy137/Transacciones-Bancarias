@@ -4,7 +4,7 @@ import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public abstract class CuentaBancaria extends Banco implements TipoCuenta {
+public abstract class CuentaBancaria implements TipoCuenta {
   protected String numeroCuenta; // numero de cuenta
   protected String tipoCuenta; // tipo de cuenta que está usando
   protected long saldo; // saldo inicial al crear la cuenta
@@ -26,9 +26,8 @@ public abstract class CuentaBancaria extends Banco implements TipoCuenta {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy/HH:mm:ss");
     String fechaHora = ahora.format(formatter);
 
-    return String.format("[ %s || %.2f || %s %s || %s || %s || %s ]",
-            tipoTransaccion, monto, tipoCuenta, numeroCuenta, nombreCliente, rutCliente,
-            fechaHora);
+    return String.format("[%s || %.2f || %s %s || %s || %s || %s]",
+            tipoTransaccion, monto, tipoCuenta, numeroCuenta, nombreCliente, rutCliente, fechaHora);
   }
 
   private String generarNumeroCuenta() {
@@ -83,6 +82,10 @@ public abstract class CuentaBancaria extends Banco implements TipoCuenta {
 
   public void setSaldo(long saldo) {
     this.saldo = saldo;
+  }
+
+  public long getSaldo() {
+    return saldo;
   }
 
 

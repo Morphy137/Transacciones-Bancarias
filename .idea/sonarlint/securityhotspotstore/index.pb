@@ -19,13 +19,18 @@ M
 src/banco/CuentaBancaria.java,0\e\0ef8f20eb41ebc1427cc6aecc45f89f139e3527f
 J
 src/banco/FileManager.java,0\d\0d5db5c935a99d6c775819fcf33284003f6ea4cb
-H
-registro_movimientos.txt,5\7\57f33f7a90a7f3a52310883a341741e495001216
 K
 src/banco/simularError.java,9\9\9908f5e05df86dbb24ef2f4b406bfb319801ec0d
 K
 src/banco/SimularError.java,1\c\1cf788cda8381a35bc928cc3ead2f6f67b5ae8d3
-R
-"src/banco/CorregirTransaccion.java,e\4\e476075984d59ddf0fb963e4c46380208972cd00
 U
 %src/banco/VerificarTransacciones.java,4\f\4f150c9fa4b644e959af367f39b25f5b8d28218e
+R
+"src/banco/registro_movimientos.txt,0\2\0296daeb11cedf675438858590801b1f5ea91b41
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
