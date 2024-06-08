@@ -215,7 +215,9 @@ public class Banco{
     Scanner scanner = new Scanner(System.in);
 
     try {
-      FileManager.abrirArchivo();
+      System.out.println("Ingrese el nombre del archivo de las transacciones para corregir.");
+      String filePath = scanner.nextLine();
+      FileManager.abrirArchivo(filePath);
     } catch (IOException e) {
       System.err.println(MenuConstantes.ERROR_ESCRIBIR_ARCHIVO + e.getMessage());
       return;

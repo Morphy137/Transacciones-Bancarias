@@ -25,7 +25,5 @@ K
 src/banco/simularError.java,9\9\9908f5e05df86dbb24ef2f4b406bfb319801ec0d
 K
 src/banco/SimularError.java,1\c\1cf788cda8381a35bc928cc3ead2f6f67b5ae8d3
-R
-"src/banco/CorregirTransaccion.java,e\4\e476075984d59ddf0fb963e4c46380208972cd00
 U
 %src/banco/VerificarTransacciones.java,4\f\4f150c9fa4b644e959af367f39b25f5b8d28218e
