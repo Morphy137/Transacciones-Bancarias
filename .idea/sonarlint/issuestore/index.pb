@@ -29,3 +29,6 @@ R
 "src/banco/CorregirTransaccion.java,e\4\e476075984d59ddf0fb963e4c46380208972cd00
 U
 %src/banco/VerificarTransacciones.java,4\f\4f150c9fa4b644e959af367f39b25f5b8d28218e
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
