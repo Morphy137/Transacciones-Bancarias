@@ -9,6 +9,7 @@ import banco.transacciones.SimularError;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -20,7 +21,19 @@ public class Banco{
   String nombreTitular;
 
   public Banco(){
-    // Constructor vacío
+    // Constructor vacio
+    cargarClientes();
+  }
+
+  public void cargarClientes() {
+    try {
+      List<Cliente> clientes = FileManager.leerClientes();
+      for (Cliente cliente : clientes) {
+        totalClientes.put(cliente.getNombre(), cliente);
+      }
+    } catch (IOException e) {
+      System.err.println("Error al leer los clientes: " + e.getMessage());
+    }
   }
 
   public void crearCuenta(Scanner scanner){
@@ -46,6 +59,13 @@ public class Banco{
       String email = scanner.nextLine();
 
       cliente = new Cliente(nombreTitular, edad, rut, direccion, telefono, email);
+
+      // Guardar el cliente en el archivo
+      try {
+        FileManager.escribirCliente(cliente);
+      } catch (IOException e) {
+        System.err.println("Error al escribir el cliente en el archivo: " + e.getMessage());
+      }
       totalClientes.put(nombreTitular, cliente);
     }
 

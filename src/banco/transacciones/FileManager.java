@@ -1,5 +1,7 @@
 package banco.transacciones;
 
+import banco.Cliente;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -53,5 +55,32 @@ public class FileManager {
     }
 
     writer.close();
+  }
+
+  public static void escribirCliente(Cliente cliente) throws IOException {
+    writer = new BufferedWriter(new FileWriter("clientes.txt", true));
+    String clienteFormateado = cliente.formatearCliente();
+
+    writer.write(clienteFormateado);
+    writer.newLine();
+    writer.close();
+  }
+
+  public static List<Cliente> leerClientes() throws IOException {
+    reader = new BufferedReader(new FileReader("clientes.txt"));
+    List<Cliente> clientes = new ArrayList<>();
+    String linea;
+
+    while ((linea = reader.readLine()) != null) {
+      // Dividir la línea en sus componentes
+      String[] partes = linea.split(" \\|\\| ");
+      // Crear un nuevo objeto Cliente
+      Cliente cliente = new Cliente(partes[0], partes[1], partes[2], partes[3], partes[4], partes[5]);
+      // Agregar el cliente a la lista de clientes
+      clientes.add(cliente);
+    }
+
+    reader.close();
+    return clientes;
   }
 }

@@ -24,7 +24,7 @@ public class SimularError {
           break;
         case 1:
           // Establece el saldo en negativo
-          cuenta.setSaldo(-1);
+          cuenta.setSaldo(cuenta.getSaldo() * -1);
           break;
         case 2:
           // Elimina el nombre del cliente
