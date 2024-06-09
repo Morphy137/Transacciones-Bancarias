@@ -1,4 +1,7 @@
-package banco;
+package banco.transacciones;
+
+import banco.Cliente;
+import banco.cuentas.CuentaBancaria;
 
 import java.util.Random;
 

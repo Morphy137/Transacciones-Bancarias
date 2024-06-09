@@ -1,18 +1,26 @@
 package banco;
 
+import banco.cuentas.CuentaAhorro;
+import banco.cuentas.CuentaBancaria;
+import banco.cuentas.CuentaCorriente;
+import banco.cuentas.CuentaVista;
+import banco.transacciones.FileManager;
+import banco.transacciones.SimularError;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Banco{
-  private Map<String, Cliente> totalClientes = new HashMap<>(); // Diccionario para almacenar los clientes
+  private final Map<String, Cliente> totalClientes = new HashMap<>(); // Diccionario para almacenar los clientes
 
+  // Datos que se piden al usuario para realizar las operaciones
   long monto;
   String nombreTitular;
 
   public Banco(){
-    // Constructor vacio
+    // Constructor vacío
   }
 
   public void crearCuenta(Scanner scanner){
@@ -64,7 +72,8 @@ public class Banco{
     cliente.agregarCuenta(cuenta);
 
     // Formatear los datos de la transacción
-    String informacionTransaccion = cuenta.formatearTransaccion("Creación de cuenta", 0, cliente.getNombre(), cliente.getRut());
+    String informacionTransaccion = cuenta.formatearTransaccion(MenuConstantes.CREACION_CUENTA, 0, cliente.getNombre(), cliente.getRut());
+    System.out.println(MenuConstantes.CREACION_CUENTA_EXITOSA);
 
     // Simular errores para guardar en el archivo
     SimularError.simularRandomError(cuenta, cliente);
@@ -73,7 +82,7 @@ public class Banco{
     try {
       FileManager.escribirEnArchivo(informacionTransaccion);
     } catch (IOException e) {
-      System.err.println("Error al escribir en el archivo: " + e.getMessage());
+      System.err.println(MenuConstantes.ERROR_ESCRIBIR_ARCHIVO + e.getMessage());
     }
   }
 

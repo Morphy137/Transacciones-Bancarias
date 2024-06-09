@@ -1,4 +1,4 @@
-package banco;
+package banco.transacciones;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,7 +12,7 @@ public class FileManager {
   private static BufferedWriter writer;
   private static BufferedReader reader;
 
-  private static String filePath = "registro_movimientos.txt";
+  private static String ruteArchive = "src/banco/archivos/";
 
   private FileManager() {
     // Constructor privado para evitar que se creen instancias de la clase
@@ -20,11 +20,11 @@ public class FileManager {
 
   // Metodos para abrir, escribir y cerrar el archivo de registro de movimientos
   public static void abrirArchivo(String filePath) throws IOException {
-    writer = new BufferedWriter(new FileWriter("src/banco/archivos/" + filePath, true));
+    writer = new BufferedWriter(new FileWriter(ruteArchive + filePath, true));
   }
 
-  public static void escribirEnArchivo(String informacion) throws IOException {
-    writer.write(informacion + "\n");
+  public static void escribirEnArchivo(String data) throws IOException {
+    writer.write(data + "\n");
   }
 
   public static void cerrarArchivo() throws IOException {
@@ -33,7 +33,7 @@ public class FileManager {
 
   // Metodo para leer el archivo de transacciones y retornar una lista con las transacciones
   public static List<String> leerArchivo(String filePath) throws IOException {
-    reader = new BufferedReader(new FileReader(filePath));
+    reader = new BufferedReader(new FileReader(ruteArchive + filePath));
     List<String> transacciones = new ArrayList<>();
     String linea;
 
@@ -45,11 +45,11 @@ public class FileManager {
     return transacciones;
   }
 
-  public static void escribirTransaccionesVerificadas(List<String> transaccionesVerificadas, String filePath) throws IOException {
+  public static void writeVerifiedTransactions(List<String> verifiedTransaction, String filePath) throws IOException {
     writer = new BufferedWriter(new FileWriter(filePath, true));
 
-    for (String transaccion : transaccionesVerificadas) {
-      writer.write(transaccion + "\n");
+    for (String transaction : verifiedTransaction) {
+      writer.write(transaction + "\n");
     }
 
     writer.close();

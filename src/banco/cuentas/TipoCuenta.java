@@ -1,4 +1,4 @@
-package banco;
+package banco.cuentas;
 
 public interface TipoCuenta {
 
