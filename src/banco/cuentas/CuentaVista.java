@@ -1,4 +1,6 @@
-package banco;
+package banco.cuentas;
+
+import banco.MenuConstantes;
 
 public class CuentaVista extends CuentaBancaria {
 

@@ -1,9 +1,11 @@
-package banco;
+package banco.cuentas;
+
+import banco.MenuConstantes;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class CuentaAhorro extends CuentaBancaria{
+public class CuentaAhorro extends CuentaBancaria {
   private LocalDate ultimaFechaInteres;
   private LocalDate ultimaFechaComisiones;
   private LocalDate fechaActual;
@@ -15,12 +17,10 @@ public class CuentaAhorro extends CuentaBancaria{
     this.fechaActual = LocalDate.now();
   }
 
-
   @Override
   public double calcularIntereses() {
-
     long diasTrascurridos = ChronoUnit.DAYS.between(ultimaFechaInteres, fechaActual);
-    double interesesGenerados = saldo * intereses * (diasTrascurridos/365.0);
+    double interesesGenerados = saldo * intereses * (diasTrascurridos / 365.0);
     ultimaFechaInteres = fechaActual; // Actualiza la ultima fecha de comisiiones
     return interesesGenerados;
   }

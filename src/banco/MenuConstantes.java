@@ -6,7 +6,7 @@ public class MenuConstantes {
   public static final String MENU_PRINCIPAL = "\n1. Crear cuenta\n2. Depositar\n3. Retirar\n4. Cuenta\n5. Salir\n";
   public static final String MENU_CREAR_CUENTA = "\n1. Cuenta corriente\n2. Cuenta ahorro\n3. Cuenta vista\n";
 
-  //Ingresar datos
+  //Ingresar movimiento
   public static final String TIPO_CUENTA = "\nIngrese el tipo de cuenta";
   public static final String MONTO_DEPOSITO = "\nIngrese el monto a depositar";
   public static final String MONTO_RETIRAR = "\nIngrese el monto a retirar";
@@ -21,6 +21,8 @@ public class MenuConstantes {
 
   //Exito
   public static final String RETIRO_EXITOSO = "Retiro realizado con éxito.";
+  public static final String DEPOSITO_EXITOSO = "Depósito realizado con éxito.";
+  public static final String CREACION_CUENTA_EXITOSA = "Cuenta creada con éxito.";
   public static final String PROGRAMA_FINALIZADO = "Programa finalizado.";
 
   //Errores
