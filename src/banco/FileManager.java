@@ -8,19 +8,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileManager extends SimularError {
+public class FileManager {
   private static BufferedWriter writer;
   private static BufferedReader reader;
 
-  private static String filePath = "src/banco/registro_movimientos.txt";
+  private static String filePath = "registro_movimientos.txt";
 
   private FileManager() {
     // Constructor privado para evitar que se creen instancias de la clase
   }
 
   // Metodos para abrir, escribir y cerrar el archivo de registro de movimientos
-  public static void abrirArchivo() throws IOException {
-    writer = new BufferedWriter(new FileWriter(filePath, true));
+  public static void abrirArchivo(String filePath) throws IOException {
+    writer = new BufferedWriter(new FileWriter("src/banco/archivos/" + filePath, true));
   }
 
   public static void escribirEnArchivo(String informacion) throws IOException {
@@ -32,7 +32,7 @@ public class FileManager extends SimularError {
   }
 
   // Metodo para leer el archivo de transacciones y retornar una lista con las transacciones
-  public static List<String> leerArchivo() throws IOException {
+  public static List<String> leerArchivo(String filePath) throws IOException {
     reader = new BufferedReader(new FileReader(filePath));
     List<String> transacciones = new ArrayList<>();
     String linea;
@@ -45,8 +45,8 @@ public class FileManager extends SimularError {
     return transacciones;
   }
 
-  public static void escribirTransaccionesVerificadas(List<String> transaccionesVerificadas) throws IOException {
-    writer = new BufferedWriter(new FileWriter("transacciones_verificadas.txt", true));
+  public static void escribirTransaccionesVerificadas(List<String> transaccionesVerificadas, String filePath) throws IOException {
+    writer = new BufferedWriter(new FileWriter(filePath, true));
 
     for (String transaccion : transaccionesVerificadas) {
       writer.write(transaccion + "\n");
