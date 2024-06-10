@@ -84,8 +84,7 @@ public class VerificarTransacciones {
               tipoCuentaNumero,
               nombreCliente,
               rutCliente,
-              fechaHora
-      );
+              fechaHora);
 
       transaccionesVerificadas.add(transaccionCorregida);
     }

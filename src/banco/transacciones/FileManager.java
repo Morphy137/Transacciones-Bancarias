@@ -12,7 +12,7 @@ public class FileManager {
   private static BufferedWriter writer;
   private static BufferedReader reader;
 
-  private static String ruteArchive = "src/banco/archivos/";
+  private static String ruteArchive = "../src/banco/archivos/";
 
   private FileManager() {
     // Constructor privado para evitar que se creen instancias de la clase
