@@ -31,7 +31,7 @@ public abstract class CuentaBancaria implements TipoCuenta {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy/HH:mm:ss");
     fechaHora = ahora.format(formatter);
 
-    return String.format("[%s || %.2f || %s %s || %s || %s || %s]",
+    return String.format("%s || %.2f || %s %s || %s || %s || %s",
             tipoTransaccion, monto, tipoCuenta, numeroCuenta, nombreCliente, rutCliente, fechaHora);
   }
 
@@ -64,7 +64,7 @@ public abstract class CuentaBancaria implements TipoCuenta {
   }
 
   public String toString() {
-    return "[CuentaBancaria]\n" +
+    return "---[CuentaBancaria]---\n" +
             "Tipo de Cuenta = " + tipoCuenta + '\n' +
             "Numero de Cuenta = " + numeroCuenta + '\n' +
             "Saldo Inicial = " + saldo + '\n' +
