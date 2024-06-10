@@ -6,7 +6,9 @@ import banco.cuentas.CuentaCorriente;
 import banco.cuentas.CuentaVista;
 import banco.transacciones.FileManager;
 import banco.transacciones.SimularError;
+import banco.transacciones.VerificarTransacciones;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -14,26 +16,14 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Banco{
-  private final Map<String, Cliente> totalClientes = new HashMap<>(); // Diccionario para almacenar los clientes
+  private final Map<String, Cliente> totalClientes = new HashMap<>();
 
   // Datos que se piden al usuario para realizar las operaciones
   long monto;
   String nombreTitular;
 
   public Banco(){
-    // Constructor vacio
-    cargarClientes();
-  }
-
-  public void cargarClientes() {
-    try {
-      List<Cliente> clientes = FileManager.leerClientes();
-      for (Cliente cliente : clientes) {
-        totalClientes.put(cliente.getNombre(), cliente);
-      }
-    } catch (IOException e) {
-      System.err.println("Error al leer los clientes: " + e.getMessage());
-    }
+    // Constructor vacío
   }
 
   public void crearCuenta(Scanner scanner){
@@ -46,26 +36,25 @@ public class Banco{
     // Crear un nuevo cliente o buscar uno existente
     Cliente cliente = totalClientes.get(nombreTitular);
     if (cliente == null) {
-      // Si el cliente no existe, crear uno nuevo
       System.out.println(MenuConstantes.EDAD_CLIENTE);
       String edad = scanner.nextLine();
       System.out.println(MenuConstantes.RUT_CLIENTE);
       String rut = scanner.nextLine();
       System.out.println(MenuConstantes.DIRECCION_CLIENTE);
       String direccion = scanner.nextLine();
-      System.out.println(MenuConstantes.TELEFONO_CLIENTE);
-      String telefono = scanner.nextLine();
+      String telefono;
+      do {
+        System.out.println(MenuConstantes.TELEFONO_CLIENTE);
+        telefono = scanner.nextLine();
+        if (!telefono.matches("\\d{9}")) {
+          System.out.println(MenuConstantes.TELEFONO_NOVALIDO);
+        }
+      } while (!telefono.matches("\\d{9}"));
+
       System.out.println(MenuConstantes.EMAIL_CLIENTE);
       String email = scanner.nextLine();
 
       cliente = new Cliente(nombreTitular, edad, rut, direccion, telefono, email);
-
-      // Guardar el cliente en el archivo
-      try {
-        FileManager.escribirCliente(cliente);
-      } catch (IOException e) {
-        System.err.println("Error al escribir el cliente en el archivo: " + e.getMessage());
-      }
       totalClientes.put(nombreTitular, cliente);
     }
 
@@ -139,10 +128,10 @@ public class Banco{
       if (cuenta != null) {
         // Si la cuenta existe, depositar el monto
         double nuevoSaldo = cuenta.depositar(monto);
-        System.out.println("Depósito realizado con éxito.\nSaldo actual: $" + nuevoSaldo);
+        System.out.println(MenuConstantes.DEPOSITO_EXITOSO + MenuConstantes.SALDO_ACTUAl + nuevoSaldo);
 
         // Formatear los datos de la transacción
-        String informacionTransaccion = cuenta.formatearTransaccion("Depósito", monto, cliente.getNombre(), cliente.getRut());
+        String informacionTransaccion = cuenta.formatearTransaccion(MenuConstantes.DEPOSITO, monto, cliente.getNombre(), cliente.getRut());
 
         // Simular errores para guardar en el archivo
         SimularError.simularRandomError(cuenta, cliente);
@@ -196,10 +185,10 @@ public class Banco{
       if (cuenta != null) {
         // Si la cuenta existe, depositar el monto
         double nuevoSaldo = cuenta.retirar(monto);
-        System.out.println("Saldo actual: $" + nuevoSaldo);
+        System.out.println(MenuConstantes.SALDO_ACTUAl + nuevoSaldo);
 
         // Formatear los datos de la transacción
-        String informacionTransaccion = cuenta.formatearTransaccion("Retiro", monto, cliente.getNombre(), cliente.getRut());
+        String informacionTransaccion = cuenta.formatearTransaccion(MenuConstantes.RETIRO, monto, cliente.getNombre(), cliente.getRut());
 
         // Simular errores para guardar en el archivo
         SimularError.simularRandomError(cuenta, cliente);
@@ -236,6 +225,23 @@ public class Banco{
     }
   }
 
+  public void corregirTransaccion(String archivoSalida){
+    try {
+      List<String> transacciones = FileManager.leerArchivo(archivoSalida);
+
+      VerificarTransacciones verificador = new VerificarTransacciones();
+      List<String> transaccionesVerificadas = verificador.verificarTransacciones(transacciones);
+
+      //Guardamos las transacciones.txt verificadas en un archivo nuevo
+      FileManager.guardarTransaccionVerificada(transaccionesVerificadas, archivoSalida + "_verificado");
+    } catch (IOException e) {
+      System.err.println(MenuConstantes.ERROR_OPERACION + e.getMessage());
+    }
+
+    // Avisar que se cierra el programa
+    System.out.println(MenuConstantes.PROGRAMA_FINALIZADO);
+  }
+
   public static void main(String[] args) {
     // instancia de la clase Banco
     Banco banco = new Banco();
@@ -243,18 +249,25 @@ public class Banco{
     // scanner para la entrada del usuario
     Scanner scanner = new Scanner(System.in);
 
+    if (args.length < 2) {
+      System.out.println("Por favor, proporciona los nombres de los archivos de entrada y salida.");
+      return;
+    }
+
+    String archivoEntrada = args[0];
+    String archivoSalida = args[1];
+
     try {
-      System.out.println("Ingrese el nombre del archivo de las transacciones para corregir.");
-      String filePath = scanner.nextLine();
-      FileManager.abrirArchivo(filePath);
+      System.out.println("Abriendo archivo: " + archivoEntrada);
+      FileManager.abrirArchivo(archivoEntrada);
     } catch (IOException e) {
-      System.err.println(MenuConstantes.ERROR_ESCRIBIR_ARCHIVO + e.getMessage());
+      System.err.println("Error al abrir el archivo " + archivoEntrada + ": " + e.getMessage());
       return;
     }
 
     // Clientes de ejemplo
-    Cliente cliente1 = new Cliente("Juan Herrera", "30", "12345678-9", "Calle 123", "123456789", "juan@example.com");
-    Cliente cliente2 = new Cliente("Maria Paredes", "25", "98765432-1", "Avenida 456", "987654321", "maria@example.com");
+    Cliente cliente1 = new Cliente("Homero Simpson", "40", "12345678-9", "Calle 123", "123456789", "homero.s@example.com");
+    Cliente cliente2 = new Cliente("Marge Simpson", "39", "98765432-1", "Avenida 456", "987654321", "marge.s@example.com");
 
     // Agregar los clientes al mapa totalClientes
     banco.totalClientes.put(cliente1.getNombre(), cliente1);
@@ -270,11 +283,11 @@ public class Banco{
       System.out.println(MenuConstantes.NOMBRE_BANCO);
       System.out.println(MenuConstantes.MENU_PRINCIPAL);
 
-      // opcion del usuario
-      int opcion = scanner.nextInt();
+      // opción elegida por el usuario
+      int choice = scanner.nextInt();
       scanner.nextLine();
 
-      switch (opcion) {
+      switch (choice) {
         case 1:
           banco.crearCuenta(scanner);
           break;
@@ -288,12 +301,14 @@ public class Banco{
           banco.mostrarCuenta(scanner);
           break;
         case 5:
-          System.out.println(MenuConstantes.PROGRAMA_FINALIZADO);
+          // Cerrar el archivo antes de corregir las transacciones
           try {
             FileManager.cerrarArchivo();
           } catch (IOException e) {
-            System.err.println("Error al cerrar el archivo: " + e.getMessage());
+            System.err.println(MenuConstantes.ERROR_OPERACION + e.getMessage());
           }
+
+          banco.corregirTransaccion(archivoSalida);
           return;
         default:
           System.out.println(MenuConstantes.DATO_NOVALIDO);

@@ -19,6 +19,10 @@ public class MenuConstantes {
   public static final String TELEFONO_CLIENTE = "\nIngrese su numero de telefono: ";
   public static final String EMAIL_CLIENTE = "\nIngrese su email de contacto: ";
 
+  //Ingresar datos archivos
+  public static final String NOMBRE_ARCHIVO = "\nIngrese el nombre del archivo: ";
+  public static final String NOMBRE_GUARDAR_TRANSACCIONES = "\nIngrese nombre del archivo\npara guardar las transacciones: ";
+
   //Exito
   public static final String RETIRO_EXITOSO = "Retiro realizado con éxito.";
   public static final String DEPOSITO_EXITOSO = "Depósito realizado con éxito.";
@@ -30,7 +34,9 @@ public class MenuConstantes {
   public static final String CLIENTE_NOEXISTE = "El cliente no existe";
   public static final String DATO_NOVALIDO = "Error en datos ingresados";
   public static final String ERROR_ESCRIBIR_ARCHIVO = "Error al escribir el archivo: ";
+  public static final String ERROR_OPERACION = "Error en la operación: ";
   public static final String SALDO_INSUFICIENTE = "Saldo insuficiente para realizar el retiro.";
+  public static final String TELEFONO_NOVALIDO = "El número de teléfono debe contener exactamente 9 dígitos. Inténtalo de nuevo.";
 
   //Tipo de Cuentas
   public static final String CUENTA_AHORRO = "Ahorro";
@@ -42,8 +48,11 @@ public class MenuConstantes {
   public static final String DEPOSITO = "Depósito";
   public static final String RETIRO = "Retiro";
 
+  //Información de Cuenta
+  public static final String SALDO_ACTUAl = "\nSaldo actual: $";
+
   //Fecha y hora
-  public static final String FECHA_HORA = "Fecha y Hora: ";
+  public static final String FECHA_HORA = "\nFecha y Hora: ";
 
   // constructor privado
   private MenuConstantes() {

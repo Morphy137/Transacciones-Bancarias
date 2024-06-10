@@ -1,6 +1,5 @@
 package banco.cuentas;
 
-import banco.Banco;
 import banco.MenuConstantes;
 
 import java.util.Random;
@@ -8,11 +7,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class CuentaBancaria implements TipoCuenta {
-  protected String numeroCuenta; // numero de cuenta
   protected String tipoCuenta; // tipo de cuenta que está usando
   protected long saldo; // saldo inicial al crear la cuenta
   protected double intereses; // porcentaje que se le ofrece por usar la cuenta
   protected double comisiones; // porcentaje que se le cobra por usar la cuenta
+
+  private String fechaHora; // fecha y hora de la transacción
+  private String numeroCuenta; // numero de cuenta
 
   Random random = new Random();
 
@@ -22,12 +23,13 @@ public abstract class CuentaBancaria implements TipoCuenta {
     this.saldo = saldo;
     this.intereses = intereses;
     this.comisiones = comisiones;
+    this.fechaHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy/HH:mm:ss"));
   }
 
   public String formatearTransaccion(String tipoTransaccion, double monto, String nombreCliente, String rutCliente) {
     LocalDateTime ahora = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy/HH:mm:ss");
-    String fechaHora = ahora.format(formatter);
+    fechaHora = ahora.format(formatter);
 
     return String.format("[%s || %.2f || %s %s || %s || %s || %s]",
             tipoTransaccion, monto, tipoCuenta, numeroCuenta, nombreCliente, rutCliente, fechaHora);
@@ -91,5 +93,11 @@ public abstract class CuentaBancaria implements TipoCuenta {
     return saldo;
   }
 
+  public void setFechaHora(String fechaHora) {
+    this.fechaHora = fechaHora;
+  }
 
+  public String getFechaHora() {
+    return fechaHora;
+  }
 }
