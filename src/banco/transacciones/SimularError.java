@@ -19,16 +19,28 @@ public class SimularError {
       int errorType = random.nextInt(3);
       switch (errorType) {
         case 0:
-          // Fija la edad en cero
-          cuenta.setNumeroCuenta("0");
+          // Invierte el orden de la fecha y la hora
+          String fechaHora = cuenta.getFechaHora();
+          String[] fechaHoraPartes = fechaHora.split("/");
+
+          cuenta.setFechaHora(fechaHoraPartes[1] + "/" + fechaHoraPartes[0]);
           break;
         case 1:
           // Establece el saldo en negativo
           cuenta.setSaldo(cuenta.getSaldo() * -1);
           break;
         case 2:
-          // Elimina el nombre del cliente
-          cliente.setNombre(null);
+          // Genera un carácter aleatorio entre 'a' y 'z'
+          char randomChar = (char) ('a' + random.nextInt(26));
+
+          // Genera una posición aleatoria para insertar el carácter
+          int randomPosition = random.nextInt(cuenta.getNumeroCuenta().length());
+
+          // Inserta el carácter aleatorio en la posición aleatoria
+          String numeroCuenta = cuenta.getNumeroCuenta();
+          numeroCuenta = numeroCuenta.substring(0, randomPosition) + randomChar + numeroCuenta.substring(randomPosition);
+
+          cuenta.setNumeroCuenta(numeroCuenta);
           break;
       }
     }

@@ -21,7 +21,7 @@ public class CuentaCorriente extends CuentaBancaria{
     LocalDate fechaActual = LocalDate.now();
     long diasTrascurridos = ChronoUnit.DAYS.between(ultimaFechaInteres, fechaActual);
     double interesesGenerados = saldo * intereses * (diasTrascurridos/365.0);
-    ultimaFechaInteres = fechaActual; // Actualiza la ultima fecha de comisiiones
+    ultimaFechaInteres = fechaActual; // Actualiza la ultima fecha de comisiones
     return interesesGenerados;
   }
 
