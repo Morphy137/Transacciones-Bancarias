@@ -1,6 +1,5 @@
 package banco.transacciones;
 
-import banco.Cliente;
 import banco.cuentas.CuentaBancaria;
 
 import java.util.Random;
@@ -9,7 +8,7 @@ public class SimularError {
 
   private static final Random random = new Random();
 
-  public static void simularRandomError(CuentaBancaria cuenta, Cliente cliente) {
+  public static void simularRandomError(CuentaBancaria cuenta) {
     // Genera un número aleatorio entre 0 y 9
     int randomNumber = random.nextInt(10);
 
@@ -30,7 +29,7 @@ public class SimularError {
           cuenta.setSaldo(cuenta.getSaldo() * -1);
           break;
         case 2:
-          // Genera un carácter aleatorio entre 'a' y 'z'
+          // Genera un carácter aleatorio entre 'a' y 'z' usando ASCII
           char randomChar = (char) ('a' + random.nextInt(26));
 
           // Genera una posición aleatoria para insertar el carácter

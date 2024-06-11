@@ -8,7 +8,6 @@ import banco.transacciones.FileManager;
 import banco.transacciones.SimularError;
 import banco.transacciones.VerificarTransacciones;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +84,7 @@ public class Banco{
     System.out.println(MenuConstantes.CREACION_CUENTA_EXITOSA);
 
     // Simular errores para guardar en el archivo
-    SimularError.simularRandomError(cuenta, cliente);
+    SimularError.simularRandomError(cuenta);
 
     // Guardar los datos de la transacción en el archivo
     try {
@@ -134,7 +133,7 @@ public class Banco{
         String informacionTransaccion = cuenta.formatearTransaccion(MenuConstantes.DEPOSITO, monto, cliente.getNombre(), cliente.getRut());
 
         // Simular errores para guardar en el archivo
-        SimularError.simularRandomError(cuenta, cliente);
+        SimularError.simularRandomError(cuenta);
 
         // Guardar los datos de la transacción en el archivo
         try {
@@ -191,7 +190,7 @@ public class Banco{
         String informacionTransaccion = cuenta.formatearTransaccion(MenuConstantes.RETIRO, monto, cliente.getNombre(), cliente.getRut());
 
         // Simular errores para guardar en el archivo
-        SimularError.simularRandomError(cuenta, cliente);
+        SimularError.simularRandomError(cuenta);
 
         // Guardar los datos de la transacción en el archivo
         try {
@@ -250,7 +249,7 @@ public class Banco{
     Scanner scanner = new Scanner(System.in);
 
     if (args.length < 2) {
-      System.out.println("Por favor, proporciona los nombres de los archivos de entrada y salida.");
+      System.out.println(MenuConstantes.NOMBRE_ENTRADA_SALIDA);
       return;
     }
 
@@ -258,10 +257,10 @@ public class Banco{
     String archivoSalida = args[1];
 
     try {
-      System.out.println("Abriendo archivo: " + archivoEntrada);
+      System.out.println(MenuConstantes.ABRIENDO_ARCHIVO + archivoEntrada);
       FileManager.abrirArchivo(archivoEntrada);
     } catch (IOException e) {
-      System.err.println("Error al abrir el archivo " + archivoEntrada + ": " + e.getMessage());
+      System.err.println(MenuConstantes.ERROR_ABRIR_ARCHIVO + archivoEntrada + MenuConstantes.FLECHA + e.getMessage());
       return;
     }
 

@@ -2,7 +2,7 @@ package banco;
 
 public class MenuConstantes {
   //Menu
-  public static final String NOMBRE_BANCO = "[Banco Manitas]";
+  public static final String NOMBRE_BANCO = "-->[Banco Manitas]<--";
   public static final String MENU_PRINCIPAL = "\n1. Crear cuenta\n2. Depositar\n3. Retirar\n4. Cuenta\n5. Salir\n";
   public static final String MENU_CREAR_CUENTA = "\n1. Cuenta corriente\n2. Cuenta ahorro\n3. Cuenta vista\n";
 
@@ -19,11 +19,11 @@ public class MenuConstantes {
   public static final String TELEFONO_CLIENTE = "\nIngrese su numero de telefono: ";
   public static final String EMAIL_CLIENTE = "\nIngrese su email de contacto: ";
 
-  //Ingresar datos archivos
-  public static final String NOMBRE_ARCHIVO = "\nIngrese el nombre del archivo: ";
-  public static final String NOMBRE_GUARDAR_TRANSACCIONES = "\nIngrese nombre del archivo\npara guardar las transacciones: ";
+  //Datos Archivos
+  public static final String NOMBRE_ENTRADA_SALIDA = "\nIngrese el nombre del archivo de entrada y salida: \nEjemplo: transacciones transaccionesVerificadas";
+  public static final String ABRIENDO_ARCHIVO = "\nAbriendo archivo: ";
 
-  //Exito
+  //Éxito Operación
   public static final String RETIRO_EXITOSO = "Retiro realizado con éxito.";
   public static final String DEPOSITO_EXITOSO = "Depósito realizado con éxito.";
   public static final String CREACION_CUENTA_EXITOSA = "Cuenta creada con éxito.";
@@ -34,6 +34,7 @@ public class MenuConstantes {
   public static final String CLIENTE_NOEXISTE = "El cliente no existe";
   public static final String DATO_NOVALIDO = "Error en datos ingresados";
   public static final String ERROR_ESCRIBIR_ARCHIVO = "Error al escribir el archivo: ";
+  public static final String ERROR_ABRIR_ARCHIVO = "Error al abrir el archivo: ";
   public static final String ERROR_OPERACION = "Error en la operación: ";
   public static final String SALDO_INSUFICIENTE = "Saldo insuficiente para realizar el retiro.";
   public static final String TELEFONO_NOVALIDO = "El número de teléfono debe contener exactamente 9 dígitos. Inténtalo de nuevo.";
@@ -51,8 +52,8 @@ public class MenuConstantes {
   //Información de Cuenta
   public static final String SALDO_ACTUAl = "\nSaldo actual: $";
 
-  //Fecha y hora
-  public static final String FECHA_HORA = "\nFecha y Hora: ";
+  //Indicadores
+  public static final String FLECHA = " --> ";
 
   // constructor privado
   private MenuConstantes() {

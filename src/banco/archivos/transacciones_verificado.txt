@@ -1,0 +1,27 @@
+Depósito||10000,00||Vista 978630767||Esteban Onate||21096603-K||09-06-2024/05:00:50
+Creación de cuenta||0,00||Vista 060649937||Esteban Onate||12.123.123-3||09-06-2024/05:13:31
+Retiro||-25000,00||Corriente 027843946||Esteban Onate||12.123.123-3||09-06-2024/05:13:38
+Depósito||50000,00||Vista 130765134||Jorge Jorge||12.123.123-1||09-06-2024/05:17:14
+Retiro||-10000,00||Vista 799796721||Maria Gimenez||12.123.123-K||10-06-2024/04:40:23
+Creación de cuenta||0,00||Vista 850600756||Maria Carmen||12.123.123-1||10-06-2024/04:53:46
+Creación de cuenta||0,00||Corriente 911565839||Marge Simpson||98765432-1||10-06-2024/04:56:29
+Creación de cuenta||0,00||Vista 046624057||Jorge Gonzales||1212121212||10-06-2024/04:57:06
+Depósito||56000,00||Corriente 376732505||Homero Simpson||12345678-9||10-06-2024/04:57:16
+Depósito||324534534,00||Corriente 911565839||Marge Simpson||98765432-1||10-06-2024/04:57:24
+Creación de cuenta||0,00||Vista 654301583||Jorge Gonzales||23034435-K||10-06-2024/06:17:50
+Depósito||5400,00||Vista 654301583||Jorge Gonzales||23034435-K||10-06-2024/06:18:50
+Depósito||4000,00||Vista 654301583||Jorge Gonzales||23034435-K||10-06-2024/06:19:01
+Retiro||6000,00||Vista 654301583||Jorge Gonzales||23034435-K||10-06-2024/06:19:11
+Creación de cuenta||0,00||Vista 874522843||Nelson Nelson||12.123.123-4||10-06-2024/07:25:22
+Creación de cuenta||0,00||Vista 579878320||Maximiliano Sepulveda||12.123.123-3||10-06-2024/22:00:38
+Depósito||23000,00||Vista 579878320||Maximiliano Sepulveda||12.123.123-3||10-06-2024/22:00:56
+Retiro||-45000,00||Vista 123456789||Carlos Carlos||98765432-1||11-06-2024/05:10:20
+Depósito||75000,00||Corriente 987654321||Laura Laura||12345678-9||11-06-2024/06:15:45
+Creación de cuenta||0,00||Vista 543219876||Pedro Pedro||98765432-1||11-06-2024/07:20:50
+Depósito||85000,00||Corriente 678901234||Juan Juan||12345678-9||11-06-2024/08:25:30
+Retiro||-55000,00||Vista 456789012||Ana Ana||98765432-1||11-06-2024/09:30:40
+Depósito||67000,00||Corriente 789012345||Luis Luis||12345678-9||11-06-2024/10:35:50
+Creación de cuenta||0,00||Vista 890123456||Elena Elena||98765432-1||11-06-2024/11:40:59
+Retiro||-92000,00||Corriente 901234567||Marta Marta||12345678-9||11-06-2024/12:45:40
+Depósito||103000,00||Vista 012345678||Pablo Pablo||98765432-1||11-06-2024/13:50:34
+Creación de cuenta||0,00||Corriente 123456789||Sofia Sofia||12345678-9||11-06-2024/14:55:34

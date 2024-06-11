@@ -12,13 +12,15 @@ public class FileManager {
   private static BufferedWriter writer;
   private static BufferedReader reader;
 
-  private static String ruteArchive = "../src/banco/archivos/";
+  // Ruta donde se guardan las transacciones, debería modificarse dependiendo de donde se ejecute el compilado
+  // Si es en terminar debe ser:"../src/banco/archivos/", desde el IDE:"src/banco/archivos/"
+  private static final String ruteArchive = "src/banco/archivos/";
 
   private FileManager() {
     // Constructor privado para evitar que se creen instancias de la clase
   }
 
-  // Metodos para abrir, escribir y cerrar el archivo de registro de movimientos
+  // Métodos para abrir, escribir y cerrar el archivo de registro de movimientos
   public static void abrirArchivo(String archivoEntrada) throws IOException {
     writer = new BufferedWriter(new FileWriter(ruteArchive + archivoEntrada + ".txt", true));
   }
@@ -31,7 +33,7 @@ public class FileManager {
     writer.close();
   }
 
-  // Metodo para leer el archivo de transacciones y retornar una lista con las transacciones
+  // Método para leer el archivo de transacciones y retornar una lista con las transacciones
   public static List<String> leerArchivo(String archivoEntrada) throws IOException {
     reader = new BufferedReader(new FileReader(ruteArchive + archivoEntrada + ".txt"));
     List<String> transacciones = new ArrayList<>();

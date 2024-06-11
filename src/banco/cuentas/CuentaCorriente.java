@@ -7,10 +7,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class CuentaCorriente extends CuentaBancaria{
-  // intereses = 0.01
-  // comisiones = 0.2
-  private LocalDate ultimaFechaInteres;
-  private LocalDate ultimaFechaComisiones;
+  private LocalDate ultimaFechaInteres; // 0.01
+  private LocalDate ultimaFechaComisiones; // 0.2
 
   public CuentaCorriente() {
     super(MenuConstantes.CUENTA_CORRIENTE, 1000000, 0.2f, 0.2);
