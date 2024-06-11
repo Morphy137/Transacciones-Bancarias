@@ -2,12 +2,11 @@ package banco.transacciones;
 
 import banco.MenuConstantes;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.List;
 
 public class VerificarTransacciones {
   public List<String> verificarTransacciones(List<String> transacciones) {
@@ -90,25 +89,22 @@ public class VerificarTransacciones {
     }
 
     // Ordenar las transacciones.txt por fecha y hora
-    Collections.sort(transaccionesVerificadas, new Comparator<String>() {
-      @Override
-      public int compare(String t1, String t2) {
-        // Extraer la fecha y hora de cada transacción
-        String fechaHora1 = t1.split("\\|\\|")[5].trim();
-        String fechaHora2 = t2.split("\\|\\|")[5].trim();
+    Collections.sort(transaccionesVerificadas, (t1, t2) -> {
+      // Extraer la fecha y hora de cada transacción
+      String fechaHora1 = t1.split("\\|\\|")[5].trim();
+      String fechaHora2 = t2.split("\\|\\|")[5].trim();
 
-        // Eliminar cualquier carácter no deseado
-        fechaHora1 = fechaHora1.replaceAll("[^\\d-/:]", "");
-        fechaHora2 = fechaHora2.replaceAll("[^\\d-/:]", "");
+      // Eliminar cualquier carácter no deseado
+      fechaHora1 = fechaHora1.replaceAll("[^\\d-/:]", "");
+      fechaHora2 = fechaHora2.replaceAll("[^\\d-/:]", "");
 
-        // Convertir las fechas y horas a objetos LocalDateTime
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy/HH:mm:ss");
-        LocalDateTime dateTime1 = LocalDateTime.parse(fechaHora1, formatter);
-        LocalDateTime dateTime2 = LocalDateTime.parse(fechaHora2, formatter);
+      // Convertir las fechas y horas a objetos LocalDateTime
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy/HH:mm:ss");
+      LocalDateTime dateTime1 = LocalDateTime.parse(fechaHora1, formatter);
+      LocalDateTime dateTime2 = LocalDateTime.parse(fechaHora2, formatter);
 
-        // Comparar los objetos LocalDateTime
-        return dateTime1.compareTo(dateTime2);
-      }
+      // Comparar los objetos LocalDateTime
+      return dateTime1.compareTo(dateTime2);
     });
 
     return transaccionesVerificadas;
