@@ -59,6 +59,12 @@ public class VerificarTransacciones {
             monto = Math.abs(monto);
           }
           break;
+        case MenuConstantes.RETIRO:
+          // No debe tener monto negativo
+          if(monto < 0) {
+            monto = Math.abs(monto);
+          }
+          break;
       }
 
       // Corregir el formato de la fecha y hora (fecha antes que hora)
