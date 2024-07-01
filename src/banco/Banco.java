@@ -7,6 +7,7 @@ import banco.cuentas.CuentaVista;
 import banco.transacciones.FileManager;
 import banco.transacciones.SimularError;
 import banco.transacciones.VerificarTransacciones;
+import ui.Login;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -244,6 +245,9 @@ public class Banco{
   public static void main(String[] args) {
     // instancia de la clase Banco
     Banco banco = new Banco();
+    Login login = new Login();
+
+    login.setVisible(true);
 
     // scanner para la entrada del usuario
     Scanner scanner = new Scanner(System.in);
