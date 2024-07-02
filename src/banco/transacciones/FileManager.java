@@ -56,4 +56,42 @@ public class FileManager {
 
     writer.close();
   }
+
+  public static List<Cliente> leerClientesDesdeArchivo(String archivoEntrada) throws IOException {
+    reader = new BufferedReader(new FileReader(RUTEARCHIVE + archivoEntrada + ".txt"));
+    List<Cliente> clientes = new ArrayList<>();
+    String linea;
+    Cliente clienteActual = null;
+
+    while ((linea = reader.readLine()) != null) {
+      // Parsear la línea para crear instancias de Cliente, Cuenta y Transaccion
+      String[] partes = linea.split("\\|\\|");
+      if (partes.length < 6) continue;
+
+      String tipoTransaccion = partes[0].trim();
+      double monto = Double.parseDouble(partes[1].trim().replace(",", "."));
+      String tipoCuentaNumero = partes[2].trim();
+      String nombreCliente = partes[3].trim();
+      String rutCliente = partes[4].trim();
+      String fechaHora = partes[5].trim();
+
+      // Crear o buscar el cliente actual
+      if (clienteActual == null || !clienteActual.getRut().equals(rutCliente)) {
+        clienteActual = new Cliente("", "", nombreCliente, "", rutCliente);
+        clientes.add(clienteActual);
+      }
+
+      // Crear la cuenta y transacción
+      String tipoCuenta = tipoCuentaNumero.split(" ")[0];
+      String numeroCuenta = tipoCuentaNumero.split(" ")[1];
+      Cuenta cuenta = new Cuenta(numeroCuenta, monto, tipoCuenta);
+      Transaccion transaccion = new Transaccion(tipoTransaccion, monto, LocalDateTime.parse(fechaHora), nombreCliente);
+
+      cuenta.agregarTransaccion(transaccion);
+      clienteActual.agregarCuenta(cuenta);
+    }
+
+    reader.close();
+    return clientes;
+  }
 }
