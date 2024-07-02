@@ -59,6 +59,8 @@ public class VerificarTransacciones {
             monto = Math.abs(monto);
           }
           break;
+        default:
+          break;
       }
 
       // Corregir el formato de la fecha y hora (fecha antes que hora)

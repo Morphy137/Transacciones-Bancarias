@@ -9,7 +9,7 @@ public class Login extends JFrame{
   private JButton bttonCancel;
   private JButton bttonConfirm;
 
-  private static Screen screen = new Screen();
+  private static final Screen screen = new Screen();
 
   public Login(){
     initComponents();
@@ -68,6 +68,7 @@ public class Login extends JFrame{
 
     if(user.equals("admin") && pass.equals("admin")){
       JOptionPane.showMessageDialog(this, "Bienvenido " + user);
+      this.setVisible(false); // Cerrar ventana de login
       screen.setVisible(true);
     }
   }
