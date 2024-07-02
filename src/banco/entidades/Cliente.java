@@ -1,4 +1,4 @@
-package banco;
+package banco.entidades;
 
 import java.util.List;
 
