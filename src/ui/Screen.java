@@ -5,14 +5,17 @@ import javax.swing.*;
 public class Screen extends JFrame{
   private JPanel panelScreen;
   private JComboBox<String> cbClientes;
-  private JCheckBox checkBox4;
-  private JCheckBox checkBox5;
+  private JCheckBox checkGiro;
+  private JCheckBox checkDeposito;
   private JButton bttonTransactions;
-  private JTable table1;
   private JCheckBox checkCtaCorriente;
   private JCheckBox checkCtaAhorro;
   private JCheckBox checkCtaVista;
-  private JTable table2;
+  private JTable tableTransacciones;
+  private JList listCliente;
+  private JList listCtaCte;
+  private JList listCtaAhorro;
+  private JList listCtaVista;
 
   public Screen() {
     initComponents();

@@ -14,7 +14,7 @@ public class FileManager {
 
   // Ruta donde se guardan las transacciones, debería modificarse dependiendo de donde se ejecute el compilado
   // Si es en terminar debe ser:"../src/banco/archivos/", desde el IDE:"src/banco/archivos/"
-  private static final String ruteArchive = "src/banco/archivos/";
+  private static final String RUTEARCHIVE = "src/banco/archivos/";
 
   private FileManager() {
     // Constructor privado para evitar que se creen instancias de la clase
@@ -22,7 +22,7 @@ public class FileManager {
 
   // Métodos para abrir, escribir y cerrar el archivo de registro de movimientos
   public static void abrirArchivo(String archivoEntrada) throws IOException {
-    writer = new BufferedWriter(new FileWriter(ruteArchive + archivoEntrada + ".txt", true));
+    writer = new BufferedWriter(new FileWriter(RUTEARCHIVE + archivoEntrada + ".txt", true));
   }
 
   public static void escribirEnArchivo(String data) throws IOException {
@@ -35,7 +35,7 @@ public class FileManager {
 
   // Método para leer el archivo de transacciones y retornar una lista con las transacciones
   public static List<String> leerArchivo(String archivoEntrada) throws IOException {
-    reader = new BufferedReader(new FileReader(ruteArchive + archivoEntrada + ".txt"));
+    reader = new BufferedReader(new FileReader(RUTEARCHIVE + archivoEntrada + ".txt"));
     List<String> transacciones = new ArrayList<>();
     String linea;
 
@@ -48,7 +48,7 @@ public class FileManager {
   }
 
   public static void guardarTransaccionVerificada(List<String> verifiedTransaction, String archivoSalida) throws IOException {
-    writer = new BufferedWriter(new FileWriter(ruteArchive + archivoSalida + ".txt", true));
+    writer = new BufferedWriter(new FileWriter(RUTEARCHIVE + archivoSalida + ".txt", true));
 
     for (String transaction : verifiedTransaction) {
       writer.write(transaction + "\n");
