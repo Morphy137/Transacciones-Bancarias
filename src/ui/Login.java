@@ -1,22 +1,27 @@
 package ui;
 
-import javax.swing.*;
+import banco.entidades.Cliente;
 
-public class Login extends JFrame{
+import javax.swing.*;
+import java.util.List;
+
+public class Login extends JFrame {
   private JPanel panelLogin;
   private JTextField txtUser;
   private JPasswordField txtPass;
-  private JButton bttonCancel;
-  private JButton bttonConfirm;
+  private JButton btnCancel;
+  private JButton btnConfirm;
+  private List<Cliente> clientes;
 
-  private static final Screen screen = new Screen();
+  private static Screen screen;
 
-  public Login(){
+  public Login(List<Cliente> clientes) {
+    this.clientes = clientes;
     initComponents();
     addListeners();
   }
 
-  private void initComponents(){
+  private void initComponents() {
     this.setTitle("CONTROL DE ACCESO");
     this.setContentPane(panelLogin);
 
@@ -28,7 +33,7 @@ public class Login extends JFrame{
     this.setLocationRelativeTo(null);
   }
 
-  private void designComponents(){
+  private void designComponents() {
     //UI
     try {
       for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -38,7 +43,6 @@ public class Login extends JFrame{
         }
       }
     } catch (Exception e) {
-      // If Nimbus is not available, you can set the GUI to another look and feel.
       for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
         if ("Windows".equals(info.getName())) {
           try {
@@ -52,24 +56,109 @@ public class Login extends JFrame{
     }
   }
 
-  private void addListeners(){
-    bttonCancel.addActionListener(_ -> removeFields());
-    bttonConfirm.addActionListener(_ -> checkLogin());
+  private void addListeners() {
+    btnCancel.addActionListener(_ -> removeFields());
+    btnConfirm.addActionListener(_ -> checkLogin());
   }
 
-  private void removeFields(){
+  private void removeFields() {
     txtUser.setText("");
     txtPass.setText("");
   }
 
-  private void checkLogin(){
+  private void checkLogin() {
     String user = txtUser.getText();
     String pass = new String(txtPass.getPassword());
 
-    if(user.equals("admin") && pass.equals("admin")){
-      JOptionPane.showMessageDialog(this, "Bienvenido " + user);
-      this.setVisible(false); // Cerrar ventana de login
-      screen.setVisible(true);
+    for (Cliente cliente : clientes) {
+      if (cliente.getUsername().equals(user) && cliente.getPassword().equals(pass)) {
+        JOptionPane.showMessageDialog(this, "Bienvenido " + user);
+        this.setVisible(false); // Cerrar ventana de login
+        screen = new Screen(clientes);
+        screen.setVisible(true);
+        return;
+      }
     }
+    JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
   }
+
+    /*
+    // Código original
+
+    package ui;
+
+    import javax.swing.*;
+
+    public class Login extends JFrame{
+        private JPanel panelLogin;
+        private JTextField txtUser;
+        private JPasswordField txtPass;
+        private JButton bttonCancel;
+        private JButton bttonConfirm;
+
+        private static final Screen screen = new Screen();
+
+        public Login(){
+            initComponents();
+            addListeners();
+        }
+
+        private void initComponents(){
+            this.setTitle("CONTROL DE ACCESO");
+            this.setContentPane(panelLogin);
+
+            designComponents();
+
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.pack();
+            this.setSize(300, 200);
+            this.setLocationRelativeTo(null);
+        }
+
+        private void designComponents(){
+            //UI
+            try {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                // If Nimbus is not available, you can set the GUI to another look and feel.
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Windows".equals(info.getName())) {
+                        try {
+                            UIManager.setLookAndFeel(info.getClassName());
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void addListeners(){
+            bttonCancel.addActionListener(_ -> removeFields());
+            bttonConfirm.addActionListener(_ -> checkLogin());
+        }
+
+        private void removeFields(){
+            txtUser.setText("");
+            txtPass.setText("");
+        }
+
+        private void checkLogin(){
+            String user = txtUser.getText();
+            String pass = new String(txtPass.getPassword());
+
+            if(user.equals("admin") && pass.equals("admin")){
+                JOptionPane.showMessageDialog(this, "Bienvenido " + user);
+                this.setVisible(false); // Cerrar ventana de login
+                screen.setVisible(true);
+            }
+        }
+    }
+    */
 }
