@@ -73,10 +73,10 @@ public class Screen extends JFrame{
         for (Cuenta cuenta : cliente.getCuentas()) {
           for (Transaccion transaccion : cuenta.getTransacciones()) {
             model.addRow(new Object[]{
-                    transaccion.getTipo(),
-                    transaccion.getMonto(),
-                    transaccion.getFechaTransaccion(),
-                    transaccion.getCliente()
+                    transaccion.tipo(),
+                    transaccion.monto(),
+                    transaccion.fechaTransaccion(),
+                    transaccion.cliente()
             });
           }
         }
