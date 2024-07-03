@@ -52,7 +52,7 @@ public class FileManager {
       // Creacion de la cuenta y transacción
       String tipoCuenta = tipoCuentaNumero.split(" ")[0];
       String numeroCuenta = tipoCuentaNumero.split(" ")[1];
-      Cuenta cuenta = new Cuenta(numeroCuenta, monto, tipoCuenta);
+      Cuenta cuenta = new Cuenta();
 
       // Analisis de la fecha y hora correctaa
 
