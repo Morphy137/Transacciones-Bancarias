@@ -38,8 +38,7 @@ public class FileManager {
 
       String tipoTransaccion = partes[0].trim();
       double monto = Double.parseDouble(partes[1].trim().replace(",", "."));
-      String tipoCuentaNumero = partes[2].trim();
-      String nombreCliente = partes[3].trim();
+        String nombreCliente = partes[3].trim();
       String rutCliente = partes[4].trim();
       String fechaHora = partes[5].trim();
 
@@ -50,9 +49,7 @@ public class FileManager {
       }
 
       // Creacion de la cuenta y transacción
-      String tipoCuenta = tipoCuentaNumero.split(" ")[0];
-      String numeroCuenta = tipoCuentaNumero.split(" ")[1];
-      Cuenta cuenta = new Cuenta();
+        Cuenta cuenta = new Cuenta();
 
       // Analisis de la fecha y hora correctaa
 
