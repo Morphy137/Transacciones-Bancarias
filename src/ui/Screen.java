@@ -1,6 +1,11 @@
 package ui;
 
+import banco.entidades.Cliente;
+import banco.entidades.Cuenta;
+import banco.entidades.Transaccion;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class Screen extends JFrame{
   private JPanel panelScreen;
@@ -16,10 +21,23 @@ public class Screen extends JFrame{
   private JList listCtaCte;
   private JList listCtaAhorro;
   private JList listCtaVista;
+  private JPanel panelCliente;
+  private JPanel panelCuentasYTransacciones;
+  private JPanel panelCuentas;
+  private JPanel panelTransacciones;
+  private JLabel seleccionarCuenta;
+  private JLabel seleccionarTransacciones;
+  private JPanel panelListas;
+  private JPanel panelListasSeleccionadas;
+  private JLabel enunciadoListasSeleccionadas;
+  private List<Cliente> clientes;
 
-  public Screen() {
+
+  public Screen(List<Cliente> clientes) {
+    this.clientes = clientes;
     initComponents();
     addListeners();
+    populateClientes();
   }
 
   private void initComponents() {
@@ -35,7 +53,37 @@ public class Screen extends JFrame{
     bttonTransactions.addActionListener(_ -> mostrarTransacciones());
   }
 
+  private void populateClientes() {
+    for (Cliente cliente : clientes) {
+      cbClientes.addItem(cliente.getNombre());
+    }
+  }
+
   public void mostrarTransacciones() {
     // Mostrar transacciones del cliente seleccionado
+    String clienteSeleccionado = (String) cbClientes.getSelectedItem();
+    for (Cliente cliente : clientes) {
+      if (cliente.getNombre().equals(clienteSeleccionado)) {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Tipo");
+        model.addColumn("Monto");
+        model.addColumn("Fecha");
+        model.addColumn("Cliente");
+
+        for (Cuenta cuenta : cliente.getCuentas()) {
+          for (Transaccion transaccion : cuenta.getTransacciones()) {
+            model.addRow(new Object[]{
+                    transaccion.getTipo(),
+                    transaccion.getMonto(),
+                    transaccion.getFechaTransaccion(),
+                    transaccion.getCliente()
+            });
+          }
+        }
+
+        tableTransacciones.setModel(model);
+        break;
+      }
+    }
   }
 }
