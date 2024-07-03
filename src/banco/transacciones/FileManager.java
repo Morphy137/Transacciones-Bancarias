@@ -45,7 +45,7 @@ public class FileManager {
 
       // Creacoin del cliente actual
       if (clienteActual == null || !clienteActual.getRut().equals(rutCliente)) {
-        clienteActual = new Cliente("", "", nombreCliente, "", rutCliente);
+        clienteActual = new Cliente("", "", nombreCliente, rutCliente);
         clientes.add(clienteActual);
       }
 
