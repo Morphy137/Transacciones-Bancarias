@@ -98,6 +98,35 @@ public class Screen extends BaseWindow{
     * Finalmente, mostrar las transacciones de manera ordenada por las fechas
     */
 
+    // la logica que hiciste
+//    public void mostrarTransacciones() {
+//      // Mostrar transacciones del cliente seleccionado
+//      String clienteSeleccionado = (String) cbClientes.getSelectedItem();
+//      for (Cliente cliente : clientes) {
+//        if (cliente.getNombre().equals(clienteSeleccionado)) {
+//          DefaultTableModel model = new DefaultTableModel();
+//          model.addColumn("Tipo");
+//          model.addColumn("Monto");
+//          model.addColumn("Fecha");
+//          model.addColumn("Cliente");
+//
+//          for (Cuenta cuenta : cliente.getCuentas()) {
+//            for (Transaccion transaccion : cuenta.getTransacciones()) {
+//              model.addRow(new Object[]{
+//                  transaccion.tipo(),
+//                  transaccion.monto(),
+//                  transaccion.fechaTransaccion(),
+//                  transaccion.cliente()
+//              });
+//            }
+//          }
+//
+//          tableTransacciones.setModel(model);
+//          break;
+//        }
+//      }
+//    }
+
   }
 
   public static Screen getInstance(List<Cliente> clientes) {
