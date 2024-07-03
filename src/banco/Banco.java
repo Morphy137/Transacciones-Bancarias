@@ -20,6 +20,7 @@ public class Banco {
   public static void main(String[] args) {
     Banco banco = new Banco();
     banco.cargarClientes();
+
     // Instancia de la clase Login
     Login login = new Login(banco.clientes);
     login.setVisible(true);
@@ -27,7 +28,7 @@ public class Banco {
 
   private void cargarClientes() {
     try {
-      clientes = FileManager.leerClientesDesdeArchivo("transacciones");
+      clientes = FileManager.leerClientesDesdeArchivo("transacciones_verificado.txt");
     } catch (IOException e) {
       logger.log(Level.SEVERE, "Error al cargar clientes desde el archivo", e);
     }

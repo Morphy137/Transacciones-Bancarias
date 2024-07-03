@@ -4,29 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
-  private final String username;
-  private final String password;
   private final String nombre;
-    private final String rut;
+  private final String rut;
   private final List<Cuenta> cuentas;
 
-  public Cliente(String username, String password, String nombre, String rut) {
-    this.username = username;
-    this.password = password;
+  public Cliente(String nombre, String rut) {
     this.nombre = nombre;
-      this.rut = rut;
+    this.rut = rut;
     this.cuentas = new ArrayList<>();
   }
 
-  // consrtuctor
-  public String getUsername() {
-    return username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
+  // constructor
   public String getNombre() {
     return nombre;
   }

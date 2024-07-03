@@ -2,6 +2,7 @@ package banco.transacciones;
 
 import banco.entidades.Cliente;
 import banco.entidades.Cuenta;
+import banco.entidades.CuentaCorriente;
 import banco.entidades.Transaccion;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,8 +15,8 @@ import java.util.List;
 
 public class FileManager {
 
-    // Ruta donde se guardan las transacciones, debería modificarse dependiendo de donde se ejecute el compilado
-  // Si es en terminar debe ser:"../src/banco/archivos/", desde el IDE:"src/banco/archivos/"
+  // Ruta donde se guardan las transacciones, debería modificarse dependiendo de donde se ejecute el compilado
+  // Si es en terminal debe ser:"../src/banco/archivos/", desde el IDE:"src/banco/archivos/"
   private static final String RUTEARCHIVE = "src/banco/archivos/";
 
   private FileManager() {
@@ -23,7 +24,7 @@ public class FileManager {
   }
 
   public static List<Cliente> leerClientesDesdeArchivo(String archivoEntrada) throws IOException {
-      BufferedReader reader = new BufferedReader(new FileReader(RUTEARCHIVE + archivoEntrada + ".txt"));
+    BufferedReader reader = new BufferedReader(new FileReader(RUTEARCHIVE + archivoEntrada));
     List<Cliente> clientes = new ArrayList<>();
     String linea;
     Cliente clienteActual = null;
@@ -42,14 +43,14 @@ public class FileManager {
       String rutCliente = partes[4].trim();
       String fechaHora = partes[5].trim();
 
-      // Creacoin del cliente actual
+      // Creacion del cliente actual
       if (clienteActual == null || !clienteActual.getRut().equals(rutCliente)) {
-        clienteActual = new Cliente("", "", nombreCliente, rutCliente);
+        clienteActual = new Cliente(nombreCliente, rutCliente);
         clientes.add(clienteActual);
       }
 
       // Creacion de la cuenta y transacción
-        Cuenta cuenta = new Cuenta();
+        Cuenta cuenta = new CuentaCorriente();
 
       // Analisis de la fecha y hora correctaa
 

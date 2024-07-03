@@ -3,7 +3,7 @@ package banco.entidades;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cuenta {
+public abstract class Cuenta {
     private final List<Transaccion> transacciones;
 
     public Cuenta() {
