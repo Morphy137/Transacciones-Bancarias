@@ -1,75 +1,124 @@
 package ui;
 
-import javax.swing.*;
+import banco.entidades.Cliente;
 
-public class Login extends JFrame{
+import javax.swing.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+
+public class Login extends BaseWindow {
   private JPanel panelLogin;
   private JTextField txtUser;
   private JPasswordField txtPass;
-  private JButton bttonCancel;
-  private JButton bttonConfirm;
+  private JButton btnCancel;
+  private JButton btnConfirm;
+  private JLabel labelExit;
+  private List<Cliente> clientes;
 
-  private static final Screen screen = new Screen();
+  private String userData;
+  private String passData;
 
-  public Login(){
+  public Login(List<Cliente> clientes) {
+    this.clientes = clientes;
+    designComponents();
     initComponents();
     addListeners();
+
   }
 
-  private void initComponents(){
+  private void initComponents() {
     this.setTitle("CONTROL DE ACCESO");
     this.setContentPane(panelLogin);
-
-    designComponents();
-
+    this.setResizable(false);
+    this.setUndecorated(true);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.pack();
     this.setSize(300, 200);
     this.setLocationRelativeTo(null);
   }
 
-  private void designComponents(){
-    //UI
+  private void designComponents() {
     try {
-      for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-          UIManager.setLookAndFeel(info.getClassName());
-          break;
-        }
-      }
-    } catch (Exception e) {
-      // If Nimbus is not available, you can set the GUI to another look and feel.
-      for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-        if ("Windows".equals(info.getName())) {
-          try {
-            UIManager.setLookAndFeel(info.getClassName());
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-          break;
-        }
-      }
+      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+      e.printStackTrace();
     }
   }
 
-  private void addListeners(){
-    bttonCancel.addActionListener(_ -> removeFields());
-    bttonConfirm.addActionListener(_ -> checkLogin());
+  private void addListeners() {
+    super.addCloseFunctionality(labelExit);
+    btnCancel.addActionListener(_ -> removeFields());
+    btnConfirm.addActionListener(_ -> checkLogin());
+    txtUser.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        if(txtUser.getText().equals("  Ingrese su usuario")){
+          txtUser.setText("");
+        }
+      }
+      @Override
+      public void focusLost(FocusEvent e) {
+        if(txtUser.getText().equals("")){
+          txtUser.setText("  Ingrese su usuario");
+        }
+      }
+    });
+    txtPass.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        String passText = new String(txtPass.getPassword());
+        if(passText.equals("123456")){
+          txtPass.setText("");
+        }
+      }
+      @Override
+      public void focusLost(FocusEvent e) {
+        if(txtPass.getPassword().length == 0){
+          txtPass.setText("123456");
+        }
+      }
+    });
   }
 
-  private void removeFields(){
+  private void removeFields() {
     txtUser.setText("");
     txtPass.setText("");
   }
 
   private void checkLogin(){
+    leerCredenciales();
+
     String user = txtUser.getText();
     String pass = new String(txtPass.getPassword());
 
-    if(user.equals("admin") && pass.equals("admin")){
-      JOptionPane.showMessageDialog(this, "Bienvenido " + user);
-      this.setVisible(false); // Cerrar ventana de login
+    if(user.equals(userData) && pass.equals(passData)){
+      JOptionPane.showMessageDialog(this, "Bienvenido" + user);
+      this.setVisible(false); // Ocultar ventana de login
+
+      Screen screen = Screen.getInstance(clientes);
       screen.setVisible(true);
+
+      this.dispose(); // Liberar recursos de la ventana de login
+    }
+    else {
+      JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+  }
+
+  private void leerCredenciales() {
+    try (BufferedReader br = new BufferedReader(new FileReader("src/banco/archivos/userPass.txt"))) {
+      String linea = br.readLine();
+      if (linea != null) {
+        String[] partes = linea.split(" ");
+        userData = partes[0];
+        passData = partes[1];
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }
