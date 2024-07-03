@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,6 +90,8 @@ public class FileManager {
       String tipoCuenta = tipoCuentaNumero.split(" ")[0];
       String numeroCuenta = tipoCuentaNumero.split(" ")[1];
       Cuenta cuenta = new Cuenta(numeroCuenta, monto, tipoCuenta);
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss/dd-MM-yyyy");
+      LocalDateTime dateTime = LocalDateTime.parse(fechaHora, formatter);
       Transaccion transaccion = new Transaccion(tipoTransaccion, monto, LocalDateTime.parse(fechaHora), nombreCliente);
 
       cuenta.agregarTransaccion(transaccion);
