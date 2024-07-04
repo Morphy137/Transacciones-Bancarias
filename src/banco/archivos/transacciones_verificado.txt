@@ -1,9 +1,9 @@
-Creación de cuenta||0,00||Vista 123456789||Carlos Perez||12.345.678-9||09-06-2024/08:00:00
-Depósito||5000,00||Vista 123456789||Carlos Perez||12.345.678-9||09-06-2024/08:30:00
-Retiro||-2000,00||Vista 123456789||Carlos Perez||12.345.678-9||09-06-2024/09:00:00
-Creación de cuenta||0,00||Corriente 987654321||Laura Martinez||98.765.432-1||10-06-2024/10:00:00
-Depósito||10000,00||Corriente 987654321||Laura Martinez||98.765.432-1||10-06-2024/10:30:00
-Retiro||-3000,00||Corriente 987654321||Laura Martinez||98.765.432-1||10-06-2024/11:00:00
-Creación de cuenta||0,00||Vista 654321987||Ana Gomez||65.432.198-7||11-06-2024/12:00:00
-Depósito||15000,00||Vista 654321987||Ana Gomez||65.432.198-7||11-06-2024/12:30:00
-Retiro||-5000,00||Vista 654321987||Ana Gomez||65.432.198-7||11-06-2024/13:00:00
+Creación de cuenta // 0,00 // Vista 123456789 // Carlos Perez // 12.345.678-9 // 09-06-2024/08:00:00
+Depósito // 5000,00 // Vista 123456789 // Carlos Perez // 12.345.678-9 // 09-06-2024/08:30:00
+Retiro // -2000,00 // Vista 123456789 // Carlos Perez // 12.345.678-9 // 09-06-2024/09:00:00
+Creación de cuenta // 0,00 // Corriente 987654321 // Laura Martinez // 98.765.432-1 // 10-06-2024/10:00:00
+Depósito // 10000,00 // Corriente 987654321 // Laura Martinez // 98.765.432-1 // 10-06-2024/10:30:00
+Retiro // -3000,00 // Corriente 987654321 // Laura Martinez // 98.765.432-1 // 10-06-2024/11:00:00
+Creación de cuenta // 0,00 // Vista 654321987 // Ana Gomez // 65.432.198-7 // 11-06-2024/12:00:00
+Depósito // 15000,00 // Vista 654321987 // Ana Gomez // 65.432.198-7 // 11-06-2024/12:30:00
+Retiro // -5000,00 // Vista 654321987 // Ana Gomez // 65.432.198-7 // 11-06-2024/13:00:00

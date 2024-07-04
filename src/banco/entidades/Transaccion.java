@@ -1,17 +1,15 @@
 package banco.entidades;
 
-import java.time.LocalDateTime;
-
 public class Transaccion {
   private String tipo;
   private String nroCuenta;
   private double monto;
   private String cliente;
   private String rut;
-  private LocalDateTime fechaTransaccion;
+  private String fechaTransaccion;
 
 
-  public Transaccion(String tipo, String nroCuenta, double monto, String cliente, String rut, LocalDateTime fechaTransaccion) {
+  public Transaccion(String tipo, String nroCuenta, double monto, String cliente, String rut, String fechaTransaccion) {
     this.tipo = tipo;
     this.nroCuenta = nroCuenta;
     this.monto = monto;
@@ -41,7 +39,7 @@ public class Transaccion {
     return rut;
   }
 
-  public LocalDateTime getFechaTransaccion() {
+  public String getFechaTransaccion() {
     return fechaTransaccion;
   }
 
@@ -67,7 +65,7 @@ public class Transaccion {
     this.rut = rut;
   }
 
-  public void setFechaTransaccion(LocalDateTime fechaTransaccion) {
+  public void setFechaTransaccion(String fechaTransaccion) {
     this.fechaTransaccion = fechaTransaccion;
   }
 }

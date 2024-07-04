@@ -1,13 +1,15 @@
 package ui;
 
-import banco.entidades.*;
+import banco.entidades.Cliente;
+import banco.transacciones.TransaccionManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Screen extends BaseWindow{
+public class Screen extends BaseWindow {
   //panel
   private JPanel panelScreen;
   //checkbox
@@ -27,15 +29,18 @@ public class Screen extends BaseWindow{
   private JButton buttonTransactions;
   private JComboBox<String> cbClientes;
 
-  private List<Cliente> clientes;
+  private TransaccionManager transaccionManager = TransaccionManager.getInstance();
+
   private static Screen instance;
 
-  private Screen(List<Cliente> clientes) {
-    this.clientes = clientes;
+  private Screen() {
+    transaccionManager = new TransaccionManager();
+    transaccionManager.leerArchivo("src/banco/archivos/transacciones.txt");
+
     designComponents();
     initComponents();
     addListeners();
-    populateClientes();
+    addComboBoxClient();
   }
 
   private void initComponents() {
@@ -46,6 +51,8 @@ public class Screen extends BaseWindow{
     this.pack();
     this.setSize(800, 600);
     this.setLocationRelativeTo(null);
+
+    tableTransacciones.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Tipo Cuenta", "Nro. Cuenta", "Tipo Transacción", "Monto", "Costo", "Saldo", "Fecha"}));
   }
 
   private void designComponents() {
@@ -61,14 +68,18 @@ public class Screen extends BaseWindow{
     buttonTransactions.addActionListener(_ -> mostrarTransacciones());
   }
 
-  private void populateClientes() {
+  private void addComboBoxClient(){
     cbClientes.removeAllItems();
+    List<Cliente> clientes = transaccionManager.obtenerClientes();
     for (Cliente cliente : clientes) {
       cbClientes.addItem(cliente.getNombre());
     }
   }
 
   public void mostrarTransacciones() {
+    DefaultTableModel model = (DefaultTableModel) tableTransacciones.getModel();
+    model.setRowCount(0);
+
     String clienteSeleccionado = (String) cbClientes.getSelectedItem();
     if(clienteSeleccionado == null) {
       JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente", "Error", JOptionPane.ERROR_MESSAGE);
@@ -91,61 +102,52 @@ public class Screen extends BaseWindow{
       return;
     }
 
-    DefaultTableModel model = (DefaultTableModel) tableTransacciones.getModel();
-    model.setRowCount(0);
+    // Obtener las transacciones del cliente seleccionado
+    List<String[]> transacciones = transaccionManager.obtenerTransacciones().stream()
+        .filter(transaccion -> {
+          String nombre = transaccion[0];
+          String rut = transaccion[1];
+          String tipoCuenta = transaccion[2];
+          String tipoTransaccion = transaccion[4];
 
-    Cliente cliente = clientes.stream()
-        .filter(c -> c.getNombre().equals(clienteSeleccionado))
-        .findFirst()
-        .orElse(null);
+          // Filtrar por cliente seleccionado
+          if (!clienteSeleccionado.equals(nombre)) {
+            return false;
+          }
 
-    if (cliente == null) {
-      JOptionPane.showMessageDialog(this, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
-      return;
+          // Filtrar por tipo de transacción
+          if (checkGiroSelected && tipoTransaccion.equals("Giro")) {
+            return true;
+          }
+          if (checkDepositoSelected && tipoTransaccion.equals("Deposito")) {
+            return true;
+          }
+
+          // Filtrar por tipo de cuenta
+          if (checkCtaCorrienteSelected && tipoCuenta.equals("Cta.Cte")) {
+            return true;
+          }
+          if (checkCtaAhorroSelected && tipoCuenta.equals("Cta.Ahorro")) {
+            return true;
+          }
+          if (checkCtaVistaSelected && tipoCuenta.equals("Vista")) {
+            return true;
+          }
+
+          return false;
+        })
+        .sorted(Comparator.comparing(t -> t[6])) // Ordenar por fecha
+        .collect(Collectors.toList());
+
+    // Añadir las transacciones filtradas a la tabla
+    for (String[] transaccion : transacciones) {
+      model.addRow(new Object[]{transaccion[2], transaccion[3], transaccion[4], transaccion[5], transaccion[6], transaccion[7], transaccion[8]});
     }
-
-    cliente.getCuentas().forEach(cuenta -> {
-      cuenta.getTransacciones().forEach(transaccion -> {
-        boolean matchesFilter = false;
-        if (checkGiroSelected && transaccion.getTipo().equals("Giro")) {
-          matchesFilter = true;
-        } else if (checkDepositoSelected && transaccion.getTipo().equals("Deposito")) {
-          matchesFilter = true;
-        }
-        // Agregar más condiciones según sea necesario
-
-        if (matchesFilter) {
-          model.addRow(new Object[]{
-              cuenta.getClass().getSimpleName(), // Tipo Cuenta
-              transaccion.getTipo(), // Tipo Transaccion
-              transaccion.getMonto(), // Monto
-              transaccion.getCliente(), // Cliente
-              transaccion.getRut(), // Rut
-              transaccion.getFechaTransaccion() // Fecha
-          });
-        }
-      });
-    });
-
-    /*
-    *
-    * Aquí se debe implementar la lógica para iterar el cliente seleccionado
-    * y mostrar las transacciones que tiene asociadas en la tabla, pero antes
-    * verificar que la transaccion a mostrar sea la que pide en los checkboxes
-    * simplemente tiene que tener por ejemplo "checkGiroSelected && transaccion.getTipo().equals("Giro")"
-    * o algo similar para no complicarse tanto.
-    * La tabla tiene que tener 7 columnas: Tipo Cuenta, Nro. Cuenta, Tipo Transaccion, Monto, Costo, Saldo, Fecha
-    * por ende donde pide Monto (actual) se obtiene al momento de guardar estos valores que se sacan del archivo de texto
-    * (lo pide el enunciado)
-    * y se guardan en las clases correspondientes o variables.
-    * Finalmente, mostrar las transacciones de manera ordenada por las fechas
-    */
-
   }
 
-  public static Screen getInstance(List<Cliente> clientes) {
+  public static Screen getInstance() {
     if (instance == null) {
-      instance = new Screen(clientes);
+      instance = new Screen();
     }
     return instance;
   }
