@@ -5,6 +5,7 @@ import banco.entidades.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Screen extends BaseWindow{
   //panel
@@ -69,20 +70,62 @@ public class Screen extends BaseWindow{
 
   public void mostrarTransacciones() {
     String clienteSeleccionado = (String) cbClientes.getSelectedItem();
+    if(clienteSeleccionado == null) {
+      JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
 
     boolean checkGiroSelected = checkGiro.isSelected();
     boolean checkDepositoSelected = checkDeposito.isSelected();
+
     boolean checkCtaCorrienteSelected = checkCtaCorriente.isSelected();
     boolean checkCtaAhorroSelected = checkCtaAhorro.isSelected();
     boolean checkCtaVistaSelected = checkCtaVista.isSelected();
 
-    if (!checkGiroSelected && !checkDepositoSelected && !checkCtaCorrienteSelected && !checkCtaAhorroSelected && !checkCtaVistaSelected) {
+    if (!checkGiroSelected && !checkDepositoSelected) {
       JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tipo de transacción", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    else if(!checkCtaCorrienteSelected && !checkCtaAhorroSelected && !checkCtaVistaSelected) {
+      JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tipo de cuenta", "Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
     DefaultTableModel model = (DefaultTableModel) tableTransacciones.getModel();
     model.setRowCount(0);
+
+    Cliente cliente = clientes.stream()
+        .filter(c -> c.getNombre().equals(clienteSeleccionado))
+        .findFirst()
+        .orElse(null);
+
+    if (cliente == null) {
+      JOptionPane.showMessageDialog(this, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+
+    cliente.getCuentas().forEach(cuenta -> {
+      cuenta.getTransacciones().forEach(transaccion -> {
+        boolean matchesFilter = false;
+        if (checkGiroSelected && transaccion.getTipo().equals("Giro")) {
+          matchesFilter = true;
+        } else if (checkDepositoSelected && transaccion.getTipo().equals("Deposito")) {
+          matchesFilter = true;
+        }
+        // Agregar más condiciones según sea necesario
+
+        if (matchesFilter) {
+          model.addRow(new Object[]{
+              cuenta.getClass().getSimpleName(), // Tipo Cuenta
+              transaccion.getTipo(), // Tipo Transaccion
+              transaccion.getMonto(), // Monto
+              transaccion.getCliente(), // Cliente
+              transaccion.getRut(), // Rut
+              transaccion.getFechaTransaccion() // Fecha
+          });
+        }
+      });
+    });
 
     /*
     *
@@ -97,35 +140,6 @@ public class Screen extends BaseWindow{
     * y se guardan en las clases correspondientes o variables.
     * Finalmente, mostrar las transacciones de manera ordenada por las fechas
     */
-
-    // la logica que hiciste
-//    public void mostrarTransacciones() {
-//      // Mostrar transacciones del cliente seleccionado
-//      String clienteSeleccionado = (String) cbClientes.getSelectedItem();
-//      for (Cliente cliente : clientes) {
-//        if (cliente.getNombre().equals(clienteSeleccionado)) {
-//          DefaultTableModel model = new DefaultTableModel();
-//          model.addColumn("Tipo");
-//          model.addColumn("Monto");
-//          model.addColumn("Fecha");
-//          model.addColumn("Cliente");
-//
-//          for (Cuenta cuenta : cliente.getCuentas()) {
-//            for (Transaccion transaccion : cuenta.getTransacciones()) {
-//              model.addRow(new Object[]{
-//                  transaccion.tipo(),
-//                  transaccion.monto(),
-//                  transaccion.fechaTransaccion(),
-//                  transaccion.cliente()
-//              });
-//            }
-//          }
-//
-//          tableTransacciones.setModel(model);
-//          break;
-//        }
-//      }
-//    }
 
   }
 

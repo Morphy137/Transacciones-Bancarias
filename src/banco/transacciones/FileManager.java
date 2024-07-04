@@ -39,7 +39,7 @@ public class FileManager {
 
       String tipoTransaccion = partes[0].trim();
       double monto = Double.parseDouble(partes[1].trim().replace(",", "."));
-        String nombreCliente = partes[3].trim();
+      String nombreCliente = partes[3].trim();
       String rutCliente = partes[4].trim();
       String fechaHora = partes[5].trim();
 
@@ -66,10 +66,10 @@ public class FileManager {
         }
       }
 
-      Transaccion transaccion = new Transaccion(tipoTransaccion, monto, dateTime, nombreCliente);
+//      Transaccion transaccion = new Transaccion(tipoTransaccion, monto, dateTime, nombreCliente);
 
-      cuenta.agregarTransaccion(transaccion);
-      clienteActual.agregarCuenta(cuenta);
+//      cuenta.agregarTransaccion(transaccion);
+//      clienteActual.agregarCuenta(cuenta);
     }
 
     reader.close();
