@@ -1,12 +1,14 @@
 package ui;
 
 import banco.entidades.Cliente;
+import banco.entidades.Cuenta;
 import banco.transacciones.TransaccionManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Screen extends BaseWindow {
@@ -65,7 +67,8 @@ public class Screen extends BaseWindow {
 
   private void addListeners() {
     super.addCloseFunctionality(labelExit);
-    buttonTransactions.addActionListener(_ -> mostrarTransacciones());
+    buttonTransactions.addActionListener(e -> mostrarTransacciones());
+    cbClientes.addActionListener(e -> mostrarCuentas());
   }
 
   private void addComboBoxClient(){
@@ -74,6 +77,51 @@ public class Screen extends BaseWindow {
     for (Cliente cliente : clientes) {
       cbClientes.addItem(cliente.getNombre());
     }
+  }
+
+  private void mostrarCuentas() {
+    String clienteSeleccionado = (String) cbClientes.getSelectedItem();
+    if (clienteSeleccionado == null) {
+      return;
+    }
+
+    List<Cliente> clientes = transaccionManager.obtenerClientes();
+    Cliente cliente = clientes.stream()
+        .filter(c -> c.getNombre().equals(clienteSeleccionado))
+        .findFirst()
+        .orElse(null);
+
+    if (cliente == null) {
+      return;
+    }
+
+    DefaultListModel<String> modeloCliente = new DefaultListModel<>();
+    modeloCliente.addElement(String.format("<html>Nombre: %s<br>RUT: %s</html>", cliente.getNombre(), cliente.getRut()));
+    listCliente.setModel(modeloCliente);
+
+    DefaultListModel<String> modeloCtaCte = new DefaultListModel<>();
+    DefaultListModel<String> modeloCtaAhorro = new DefaultListModel<>();
+    DefaultListModel<String> modeloCtaVista = new DefaultListModel<>();
+
+    for (Cuenta cuenta : cliente.getCuentas().values()) {
+      String tipoCuenta = cuenta.getTipo();
+      String cuentaInfo = String.format("<html>Nro: %s<br>Saldo: %s</html>", cuenta.getNumero(), cuenta.getSaldo());
+      switch (tipoCuenta) {
+        case "Cta.Cte":
+          modeloCtaCte.addElement(cuentaInfo);
+          break;
+        case "Cta.Ahorro":
+          modeloCtaAhorro.addElement(cuentaInfo);
+          break;
+        case "Vista":
+          modeloCtaVista.addElement(cuentaInfo);
+          break;
+      }
+    }
+
+    listCtaCte.setModel(modeloCtaCte);
+    listCtaAhorro.setModel(modeloCtaAhorro);
+    listCtaVista.setModel(modeloCtaVista);
   }
 
   public void mostrarTransacciones() {

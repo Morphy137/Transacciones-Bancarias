@@ -74,7 +74,8 @@ public class TransaccionManager {
 
       String numeroCuenta = datosCuentaPartes[0];
       double saldoInicial = Double.parseDouble(datosCuentaPartes[1]);
-      Cuenta cuenta = new Cuenta(numeroCuenta, saldoInicial);
+      String tipoCuenta = tipoTransaccion.split(" ")[1]; //"Crear Cta.Cte" -> "Cta.Cte"
+      Cuenta cuenta = new Cuenta(numeroCuenta, saldoInicial, tipoCuenta);
 
       // Agregar la cuenta al cliente correspondiente
       cliente.agregarCuenta(numeroCuenta, cuenta);

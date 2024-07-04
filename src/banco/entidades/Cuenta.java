@@ -5,12 +5,14 @@ import java.util.List;
 
 public class Cuenta{
     private String numero;
+    private String tipoCuenta;
     private double saldo;
     private List<String> transacciones;
 
-    public Cuenta(String numero, double saldo){
+    public Cuenta(String numero, double saldo, String tipoCuenta){
         this.numero = numero;
         this.saldo = saldo;
+        this.tipoCuenta = tipoCuenta;
         this.transacciones = new ArrayList<>();
     }
 
@@ -20,6 +22,10 @@ public class Cuenta{
 
     public double getSaldo(){
         return saldo;
+    }
+
+    public String getTipo(){
+        return tipoCuenta;
     }
 
     public void setSaldo(double saldo){
