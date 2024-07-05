@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cuenta{
-    private String numero;
-    private String tipoCuenta;
+    private final String numero;
+    private final String tipoCuenta;
     private double saldo;
-    private List<String> transacciones;
+    private final List<String> transacciones;
 
     public Cuenta(String numero, double saldo, String tipoCuenta){
         this.numero = numero;

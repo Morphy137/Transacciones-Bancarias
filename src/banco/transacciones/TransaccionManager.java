@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TransaccionManager {
-  private Map<String, Cliente> clientes;
+  private final Map<String, Cliente> clientes;
 
   private static TransaccionManager instance;
 
