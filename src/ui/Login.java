@@ -47,6 +47,7 @@ public class Login extends BaseWindow {
   private void addListeners() {
     super.addCloseFunctionality(labelExit);
     btnCancel.addActionListener(_ -> removeFields());
+    btnCancel.addActionListener(_ -> cerrarVentana());
     btnConfirm.addActionListener(_ -> checkLogin());
     txtUser.addFocusListener(new FocusAdapter() {
       @Override
@@ -116,4 +117,9 @@ public class Login extends BaseWindow {
       e.printStackTrace();
     }
   }
+
+  private void cerrarVentana() {
+    this.dispose();
+  }
+
 }
