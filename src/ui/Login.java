@@ -22,7 +22,6 @@ public class Login extends BaseWindow {
     designComponents();
     initComponents();
     addListeners();
-
   }
 
   private void initComponents() {
@@ -30,7 +29,6 @@ public class Login extends BaseWindow {
     this.setContentPane(panelLogin);
     this.setResizable(false);
     this.setUndecorated(true);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.pack();
     this.setSize(300, 200);
     this.setLocationRelativeTo(null);
@@ -46,8 +44,8 @@ public class Login extends BaseWindow {
 
   private void addListeners() {
     super.addCloseFunctionality(labelExit);
-    btnCancel.addActionListener(_ -> removeFields());
-    btnConfirm.addActionListener(_ -> checkLogin());
+    btnCancel.addActionListener(k -> removeFields());
+    btnConfirm.addActionListener(k -> checkLogin());
     txtUser.addFocusListener(new FocusAdapter() {
       @Override
       public void focusGained(FocusEvent e) {

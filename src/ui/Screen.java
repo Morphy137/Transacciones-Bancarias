@@ -8,8 +8,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Screen extends BaseWindow {
   //panel
@@ -31,7 +29,7 @@ public class Screen extends BaseWindow {
   private JButton buttonTransactions;
   private JComboBox<String> cbClientes;
 
-  private TransaccionManager transaccionManager = TransaccionManager.getInstance();
+  private final TransaccionManager transaccionManager;
 
   private static Screen instance;
 
@@ -49,7 +47,6 @@ public class Screen extends BaseWindow {
     this.setTitle("BANCO");
     this.setContentPane(panelScreen);
     this.setUndecorated(true);
-    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.pack();
     this.setSize(800, 600);
     this.setLocationRelativeTo(null);
@@ -116,6 +113,8 @@ public class Screen extends BaseWindow {
         case "Vista":
           modeloCtaVista.addElement(cuentaInfo);
           break;
+        default:
+          break;
       }
     }
 
@@ -156,7 +155,7 @@ public class Screen extends BaseWindow {
         .filter(transaccion -> (checkGiroSelected && "Giro".equals(transaccion[4])) || (checkDepositoSelected && "Deposito".equals(transaccion[4])))
         .filter(transaccion -> (checkCtaCorrienteSelected && "Cta.Cte".equals(transaccion[2])) || (checkCtaAhorroSelected && "Cta.Ahorro".equals(transaccion[2])) || (checkCtaVistaSelected && "Vista".equals(transaccion[2])))
         .sorted(Comparator.comparing(t -> t[6]))
-        .collect(Collectors.toList());
+        .toList();
 
     // Añadir las transacciones filtradas a la tabla
     for (String[] transaccion : transacciones) {

@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TransaccionManager {
-  private static final String RUTA_ARCHIVO = "src/banco/archivos/";
   private Map<String, Cliente> clientes;
 
   private static TransaccionManager instance;
@@ -137,18 +136,5 @@ public class TransaccionManager {
 
   public List<Cliente> obtenerClientes() {
     return clientes.values().stream().collect(Collectors.toList());
-  }
-
-  public void mostrarClientes() {
-    System.out.println("Clientes: " + clientes.size());
-    System.out.println(obtenerClientes());
-
-    for (Cliente cliente : clientes.values()) {
-      System.out.println("Cliente: " + cliente.getNombre() + ", RUT: " + cliente.getRut());
-      for (Cuenta cuenta : cliente.getCuentas().values()) {
-        System.out.println("  Cuenta: " + cuenta.getNumero() + ", Saldo: " + cuenta.getSaldo());
-        System.out.println("  Transacciones: " + cuenta.getTransacciones());
-      }
-    }
   }
 }
