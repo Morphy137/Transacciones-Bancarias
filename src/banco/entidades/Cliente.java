@@ -1,17 +1,17 @@
 package banco.entidades;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cliente {
   private final String nombre;
   private final String rut;
-  private final List<Cuenta> cuentas;
+  private final Map<String, Cuenta> cuentas;
 
   public Cliente(String nombre, String rut) {
     this.nombre = nombre;
     this.rut = rut;
-    this.cuentas = new ArrayList<>();
+    this.cuentas = new HashMap<>();
   }
 
   // constructor
@@ -23,12 +23,13 @@ public class Cliente {
     return rut;
   }
 
-  public List<Cuenta> getCuentas() {
+  public Map<String, Cuenta> getCuentas() {
     return cuentas;
   }
 
-  public void agregarCuenta(Cuenta cuenta) {
-    this.cuentas.add(cuenta);
+  public void agregarCuenta(String tipo, Cuenta cuenta){
+    if(!cuentas.containsKey(tipo)){
+      cuentas.put(tipo, cuenta);
+    }
   }
-
 }

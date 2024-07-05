@@ -1,14 +1,11 @@
 package ui;
 
-import banco.entidades.Cliente;
-
 import javax.swing.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 public class Login extends BaseWindow {
   private JPanel panelLogin;
@@ -17,17 +14,14 @@ public class Login extends BaseWindow {
   private JButton btnCancel;
   private JButton btnConfirm;
   private JLabel labelExit;
-  private List<Cliente> clientes;
 
   private String userData;
   private String passData;
 
-  public Login(List<Cliente> clientes) {
-    this.clientes = clientes;
+  public Login() {
     designComponents();
     initComponents();
     addListeners();
-
   }
 
   private void initComponents() {
@@ -35,7 +29,6 @@ public class Login extends BaseWindow {
     this.setContentPane(panelLogin);
     this.setResizable(false);
     this.setUndecorated(true);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.pack();
     this.setSize(300, 200);
     this.setLocationRelativeTo(null);
@@ -51,8 +44,8 @@ public class Login extends BaseWindow {
 
   private void addListeners() {
     super.addCloseFunctionality(labelExit);
-    btnCancel.addActionListener(_ -> removeFields());
-    btnConfirm.addActionListener(_ -> checkLogin());
+    btnCancel.addActionListener(k -> removeFields());
+    btnConfirm.addActionListener(k -> checkLogin());
     txtUser.addFocusListener(new FocusAdapter() {
       @Override
       public void focusGained(FocusEvent e) {
@@ -96,10 +89,10 @@ public class Login extends BaseWindow {
     String pass = new String(txtPass.getPassword());
 
     if(user.equals(userData) && pass.equals(passData)){
-      JOptionPane.showMessageDialog(this, "Bienvenido" + user);
+      JOptionPane.showMessageDialog(this, "¡Bienvenido " + user + "!");
       this.setVisible(false); // Ocultar ventana de login
 
-      Screen screen = Screen.getInstance(clientes);
+      Screen screen = Screen.getInstance();
       screen.setVisible(true);
 
       this.dispose(); // Liberar recursos de la ventana de login
