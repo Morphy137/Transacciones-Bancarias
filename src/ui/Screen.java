@@ -87,9 +87,9 @@ public class Screen extends BaseWindow {
 
     List<Cliente> clientes = transaccionManager.obtenerClientes();
     Cliente cliente = clientes.stream()
-        .filter(c -> c.getNombre().equals(clienteSeleccionado))
-        .findFirst()
-        .orElse(null);
+            .filter(c -> c.getNombre().equals(clienteSeleccionado))
+            .findFirst()
+            .orElse(null);
 
     if (cliente == null) {
       return;
@@ -144,24 +144,42 @@ public class Screen extends BaseWindow {
     if (!checkGiroSelected && !checkDepositoSelected) {
       JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tipo de transacción", "Error", JOptionPane.ERROR_MESSAGE);
       return;
-    }
-    else if(!checkCtaCorrienteSelected && !checkCtaAhorroSelected && !checkCtaVistaSelected) {
+    } else if(!checkCtaCorrienteSelected && !checkCtaAhorroSelected && !checkCtaVistaSelected) {
       JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tipo de cuenta", "Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
     // Obtener las transacciones del cliente seleccionado
     List<String[]> transacciones = transaccionManager.obtenerTransacciones().stream()
-        .filter(transaccion -> transaccion[0].equals(clienteSeleccionado))
-        .filter(transaccion -> (checkGiroSelected && "Giro".equals(transaccion[4])) || (checkDepositoSelected && "Deposito".equals(transaccion[4])))
-        .filter(transaccion -> (checkCtaCorrienteSelected && "Cta.Cte".equals(transaccion[2])) || (checkCtaAhorroSelected && "Cta.Ahorro".equals(transaccion[2])) || (checkCtaVistaSelected && "Vista".equals(transaccion[2])))
-        .sorted(Comparator.comparing(t -> t[6]))
-        .collect(Collectors.toList());
+            .filter(transaccion -> transaccion[0].equals(clienteSeleccionado))
+            // Filtrar transacciones por tipo (Giro o Deposito)
+            .filter(transaccion ->
+                    (checkGiroSelected && "Giro".equals(transaccion[4])) ||
+                            (checkDepositoSelected && "Deposito".equals(transaccion[4]))
+            )
+            // Filtrar transacciones por tipo de cuenta (Cta.Cte, Cta.Ahorro, Vista)
+            .filter(transaccion ->
+                    (checkCtaCorrienteSelected && "Cta.Cte".equals(transaccion[2])) ||
+                            (checkCtaAhorroSelected && "Cta.Ahorro".equals(transaccion[2])) ||
+                            (checkCtaVistaSelected && "Vista".equals(transaccion[2]))
+            )
+            .sorted(Comparator.comparing(t -> t[6]))
+            .collect(Collectors.toList());
 
     // Añadir las transacciones filtradas a la tabla
+    /* inicio de bloque */
     for (String[] transaccion : transacciones) {
-      model.addRow(new Object[]{transaccion[2], transaccion[3], transaccion[4], transaccion[5], transaccion[6], transaccion[7], transaccion[8]});
+      model.addRow(new Object[]{
+              transaccion[2], // Tipo Cuenta
+              transaccion[3], // Nro. Cuenta
+              transaccion[4], // Tipo Transacción
+              transaccion[5], // Monto
+              transaccion[6], // Costo
+              transaccion[7], // Saldo
+              transaccion[8]  // Fecha
+      });
     }
+    /* final de bloque */
   }
 
   public static Screen getInstance() {

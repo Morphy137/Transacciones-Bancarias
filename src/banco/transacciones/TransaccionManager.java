@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class TransaccionManager {
   private static final String RUTA_ARCHIVO = "src/banco/archivos/";
-  private Map<String, Cliente> clientes;
+  private final Map<String, Cliente> clientes;
 
   private static TransaccionManager instance;
 
@@ -35,7 +35,7 @@ public class TransaccionManager {
       while((linea = br.readLine()) != null){
         procesarLinea(linea);
       }
-    }catch (IOException e){
+    } catch (IOException e){
       e.printStackTrace();
     }
   }
@@ -55,8 +55,7 @@ public class TransaccionManager {
       datosCuenta = partes[2].trim();
       datosCliente = partes[3].trim();
       fecha = partes[4].trim();
-    }
-    else{
+    } else {
       datosCuenta = partes[1].trim();
       datosCliente = partes[2].trim();
       fecha = partes[3].trim();
@@ -79,8 +78,7 @@ public class TransaccionManager {
 
       // Agregar la cuenta al cliente correspondiente
       cliente.agregarCuenta(numeroCuenta, cuenta);
-    }
-    else{
+    } else {
       // Procesar las transacciones de giro y depósito
       String[] datosMontoPartes = datosMonto.split(" ");
       double costo = 0;
@@ -103,19 +101,18 @@ public class TransaccionManager {
 
       if(tipoTransaccion.equals("Giro")){
         cuenta.setSaldo(cuenta.getSaldo() - monto);
-      }
-      else if( tipoTransaccion.equals("Deposito")){
+      } else if(tipoTransaccion.equals("Deposito")){
         cuenta.setSaldo(cuenta.getSaldo() + monto);
       }
 
       String transaccionFormateada = String.join("//",
-          tipoCuenta,
-          numeroCuenta,
-          tipoTransaccion,
-          String.valueOf(monto),
-          String.valueOf(costo),
-          String.valueOf(cuenta.getSaldo()),
-          fecha.split("/")[0] // Solo la fecha sin la hora
+              tipoCuenta,
+              numeroCuenta,
+              tipoTransaccion,
+              String.valueOf(monto),
+              String.valueOf(costo),
+              String.valueOf(cuenta.getSaldo()),
+              fecha.split("/")[0] // Solo la fecha sin la hora
       );
 
       cuenta.agregarTransaccion(transaccionFormateada);
