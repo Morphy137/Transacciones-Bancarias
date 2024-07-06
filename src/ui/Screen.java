@@ -6,6 +6,8 @@ import banco.transacciones.TransaccionManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 
@@ -154,7 +156,7 @@ public class Screen extends BaseWindow {
         .filter(transaccion -> transaccion[0].equals(clienteSeleccionado))
         .filter(transaccion -> (checkGiroSelected && "Giro".equals(transaccion[4])) || (checkDepositoSelected && "Deposito".equals(transaccion[4])))
         .filter(transaccion -> (checkCtaCorrienteSelected && "Cta.Cte".equals(transaccion[2])) || (checkCtaAhorroSelected && "Cta.Ahorro".equals(transaccion[2])) || (checkCtaVistaSelected && "Vista".equals(transaccion[2])))
-        .sorted(Comparator.comparing(t -> t[6]))
+        .sorted(Comparator.comparing(t -> LocalDate.parse(t[8], DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
         .toList();
 
     // Añadir las transacciones filtradas a la tabla
